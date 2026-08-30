@@ -1145,7 +1145,6 @@
                 <img
                     id="gameIcon"
                     class="game-icon"
-                    src="https://tr.rbxcdn.com/180DAY-6d43290e39a8641a8a1f99bf8d62f12b/512/512/Image/Png/noFilter"
                     alt="Project Beasts Roblox Game Icon"
                 >
 
@@ -1465,7 +1464,6 @@
                     <img
                         id="groupIcon"
                         class="group-icon"
-                        src="https://tr.rbxcdn.com/180DAY-2533e8e3974c01d57779991b226acaa2/150/150/Image/Png/noFilter"
                         alt="Memes Games Studio"
                     >
                 </div>
@@ -1485,7 +1483,7 @@
                     <h4><span class="role-badge owner-badge">Owner</span></h4>
                     <div class="crew-grid crew-1">
                         <div class="crew-card">
-                            <div class="crew-avatar" style="background-image:url('https://tr.rbxcdn.com/30DAY-AvatarHeadshot-B290D8494754B5FAD8B87C5FE1F5754C-Png/150/150/AvatarHeadshot/Png/isCircular')"></div>
+                            <div class="crew-avatar" data-userid="3846766890"></div>
                             <div class="crew-name">OriginallyNero</div>
                             <div class="crew-handle">@lifeafter76</div>
                         </div>
@@ -1496,11 +1494,11 @@
                     <h4><span class="role-badge dev-badge">Dev</span></h4>
                     <div class="crew-grid crew-4">
                         <div class="crew-card">
-                            <div class="crew-avatar" style="background-image:url('https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9A223E54AFFB09E414063209DAC9FF05-Png/150/150/AvatarHeadshot/Png/isCircular')"></div>
+                            <div class="crew-avatar" data-userid="1100207661"></div>
                             <div class="crew-name">VNG_SUCKS</div>
                         </div>
                         <div class="crew-card">
-                            <div class="crew-avatar" style="background-image:url('https://tr.rbxcdn.com/30DAY-AvatarHeadshot-241C41598DF5A7CABC11803DAF101316-Png/150/150/AvatarHeadshot/Png/isCircular')"></div>
+                            <div class="crew-avatar" data-userid="3688698266"></div>
                             <div class="crew-name">PickleLord</div>
                         </div>
                     </div>
@@ -1510,7 +1508,7 @@
                     <h4><span class="role-badge tester-badge">Testers</span></h4>
                     <div class="crew-grid crew-4">
                         <div class="crew-card">
-                            <div class="crew-avatar" style="background-image:url('https://tr.rbxcdn.com/30DAY-AvatarHeadshot-7D60F04013667B6E3E22268C70430A5A-Png/150/150/AvatarHeadshot/Png/isCircular')"></div>
+                            <div class="crew-avatar" data-userid="8555555068"></div>
                             <div class="crew-name">ipoopyouuwu</div>
                         </div>
                     </div>
@@ -1605,8 +1603,55 @@
     </footer>
 
 
-    <!-- Roblox icons hardcoded for CORS compatibility -->
+    <script>
 
-</body>
+        var placeId = "133266772399319";
+        var groupId = "34127398";
+        var api = "/api/thumbnails";
+
+        function qs(obj) {
+            return Object.entries(obj).map(function(e) {
+                return encodeURIComponent(e[0]) + "=" + encodeURIComponent(e[1]);
+            }).join("&");
+        }
+
+        fetch(api + "?endpoint=gameicons&" + qs({ placeIds: placeId, size: "512x512", format: "Png", isCircular: "false" }))
+            .then(function(r) { return r.json(); })
+            .then(function(d) {
+                if (d.data && d.data[0] && d.data[0].imageUrl) {
+                    var i = new Image();
+                    i.onload = function() { document.getElementById("gameIcon").src = d.data[0].imageUrl; };
+                    i.src = d.data[0].imageUrl;
+                }
+            });
+
+        fetch(api + "?endpoint=groups/icons&" + qs({ groupIds: groupId, size: "150x150", format: "Png", isCircular: "false" }))
+            .then(function(r) { return r.json(); })
+            .then(function(d) {
+                if (d.data && d.data[0] && d.data[0].imageUrl) {
+                    var i = new Image();
+                    i.onload = function() { document.getElementById("groupIcon").src = d.data[0].imageUrl; };
+                    i.src = d.data[0].imageUrl;
+                }
+            });
+
+        var ids = [];
+        document.querySelectorAll("[data-userid]").forEach(function(el) {
+            ids.push(el.getAttribute("data-userid"));
+        });
+        if (ids.length > 0) {
+            fetch(api + "?endpoint=users/avatar-headshot&" + qs({ userIds: ids.join(","), size: "150x150", format: "Png", isCircular: "true" }))
+                .then(function(r) { return r.json(); })
+                .then(function(d) {
+                    if (d.data) {
+                        d.data.forEach(function(e) {
+                            var el = document.querySelector('[data-userid="' + e.targetId + '"]');
+                            if (el && e.imageUrl) el.style.backgroundImage = "url(" + e.imageUrl + ")";
+                        });
+                    }
+                });
+        }
+
+    </script>
 
 </html>
