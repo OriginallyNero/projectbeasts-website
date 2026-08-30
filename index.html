@@ -1470,14 +1470,111 @@
 
                 <div class="group-info">
                     <h3>Memes Games Studio</h3>
-                    <p><span id="memberCount">355 Members</span> · <a href="https://www.roblox.com/communities/34127398/Memes-Games-Studio" target="_blank" rel="noopener">Join the Community</a></p>
+                    <p>355 Members · <a href="https://www.roblox.com/communities/34127398/Memes-Games-Studio" target="_blank" rel="noopener">Join the Community</a></p>
                 </div>
 
             </div>
 
 
         <!-- populated by JS from Roblox API -->
-            <div id="crewRoles"></div>
+            <div id="crewRoles">
+
+                <div class="crew-role">
+                    <h4><span class="role-badge owner-badge">Owner</span></h4>
+                    <div class="crew-grid crew-1">
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="3846766890"></div>
+                            <div class="crew-name">OriginallyNero</div>
+                            <div class="crew-handle">@lifeafter76</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crew-role">
+                    <h4><span class="role-badge dev-badge">Dev</span></h4>
+                    <div class="crew-grid crew-4">
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="1100207661"></div>
+                            <div class="crew-name">VNG_SUCKS</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="3688698266"></div>
+                            <div class="crew-name">PickleLord</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="850381140"></div>
+                            <div class="crew-name">Kia</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="5481757228"></div>
+                            <div class="crew-name">Jaydenn</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crew-role">
+                    <h4><span class="role-badge tester-badge">Testers</span></h4>
+                    <div class="crew-grid crew-4">
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="731363757"></div>
+                            <div class="crew-name">kyn_52f</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="7600338140"></div>
+                            <div class="crew-name">icecream</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="2581955389"></div>
+                            <div class="crew-name">St4r</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="1762446177"></div>
+                            <div class="crew-name">lil_dino</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="3229532872"></div>
+                            <div class="crew-name">LEGOerts</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="3133437803"></div>
+                            <div class="crew-name">ciperr</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="3540865394"></div>
+                            <div class="crew-name">TigerBolt</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="8555555068"></div>
+                            <div class="crew-name">ipoopyouuwu</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="1805738644"></div>
+                            <div class="crew-name">george</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="4998818159"></div>
+                            <div class="crew-name">isthatzay</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="8538047966"></div>
+                            <div class="crew-name">Illision</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="7389738679"></div>
+                            <div class="crew-name">Itzz_Tamas</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="5813021404"></div>
+                            <div class="crew-name">rexx</div>
+                        </div>
+                        <div class="crew-card">
+                            <div class="crew-avatar" data-userid="5781660240"></div>
+                            <div class="crew-name">SoG_bOBy2o</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
     </section>
@@ -1575,175 +1672,50 @@
         var placeId = "133266772399319";
         var groupId = "34127398";
 
-        // Roles to show on the site (rank order: highest first)
-        var showRoles = ["Owner", "Dev", "Testers"];
-
         // Load game icon
-        var iconApi =
-            "https://thumbnails.roblox.com/v1/places/gameicons"
-            + "?placeIds=" + placeId
-            + "&size=512x512"
-            + "&format=Png"
-            + "&isCircular=false";
-
-        var gameIconEl = document.getElementById("gameIcon");
-
-        fetch(iconApi)
+        fetch("https://thumbnails.roblox.com/v1/places/gameicons?placeIds=" + placeId + "&size=512x512&format=Png&isCircular=false")
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (data.data && data.data.length > 0 && data.data[0].imageUrl) {
                     var img = new Image();
-                    img.onload = function() { gameIconEl.src = data.data[0].imageUrl; };
-                    img.onerror = function() { gameIconEl.style.display = "none"; };
-                    img.src = data.data[0].imageUrl;
-                } else {
-                    gameIconEl.style.display = "none";
-                }
-            })
-            .catch(function() { gameIconEl.style.display = "none"; });
-
-        // Load group icon and member count
-        var groupIconApi =
-            "https://thumbnails.roblox.com/v1/groups/icons"
-            + "?groupIds=" + groupId
-            + "&size=512x512"
-            + "&format=Png"
-            + "&isCircular=false";
-
-        var groupIconEl = document.getElementById("groupIcon");
-
-        fetch(groupIconApi)
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                if (data.data && data.data.length > 0 && data.data[0].imageUrl) {
-                    var img = new Image();
-                    img.onload = function() { groupIconEl.src = data.data[0].imageUrl; };
-                    img.onerror = function() { groupIconEl.style.background = "#cfb482"; };
+                    img.onload = function() { document.getElementById("gameIcon").src = data.data[0].imageUrl; };
                     img.src = data.data[0].imageUrl;
                 }
             })
             .catch(function() {});
 
-        // Update member count dynamically
-        fetch("https://groups.roblox.com/v1/groups/" + groupId)
+        // Load group icon
+        fetch("https://thumbnails.roblox.com/v1/groups/icons?groupIds=" + groupId + "&size=512x512&format=Png&isCircular=false")
             .then(function(r) { return r.json(); })
             .then(function(data) {
-                if (data.memberCount) {
-                    var el = document.getElementById("memberCount");
-                    if (el) el.textContent = data.memberCount.toLocaleString() + " Members";
+                if (data.data && data.data.length > 0 && data.data[0].imageUrl) {
+                    var img = new Image();
+                    img.onload = function() { document.getElementById("groupIcon").src = data.data[0].imageUrl; };
+                    img.src = data.data[0].imageUrl;
                 }
             })
             .catch(function() {});
 
-        // Dynamically build crew roster from Roblox Groups API
-        var crewRolesEl = document.getElementById("crewRoles");
+        // Load all crew avatars by user IDs
+        var avatarEls = document.querySelectorAll("[data-userid]");
+        var ids = [];
 
-        fetch("https://groups.roblox.com/v1/groups/" + groupId + "/roles")
-            .then(function(r) { return r.json(); })
-            .then(function(rolesData) {
-                var roles = rolesData.roles || [];
+        avatarEls.forEach(function(el) {
+            ids.push(el.getAttribute("data-userid"));
+        });
 
-                // Filter to roles we want to show, exclude Guest/Member
-                var targetRoles = roles.filter(function(r) {
-                    return showRoles.indexOf(r.name) !== -1 && r.memberCount > 0;
-                });
-
-                // Sort by rank descending (Owner first)
-                targetRoles.sort(function(a, b) { return b.rank - a.rank; });
-
-                var badgeClassMap = {
-                    "Owner": "owner-badge",
-                    "Dev": "dev-badge",
-                    "Testers": "tester-badge"
-                };
-
-                targetRoles.forEach(function(role) {
-                    var section = document.createElement("div");
-                    section.className = "crew-role";
-
-                    var h4 = document.createElement("h4");
-                    var badge = document.createElement("span");
-                    badge.className = "role-badge " + (badgeClassMap[role.name] || "tester-badge");
-                    badge.textContent = role.name;
-                    h4.appendChild(badge);
-                    section.appendChild(h4);
-
-                    var grid = document.createElement("div");
-                    var count = role.memberCount;
-                    var gridClass = count <= 1 ? "crew-1" : count <= 3 ? "crew-2" : count <= 5 ? "crew-3" : "crew-4";
-                    grid.className = "crew-grid " + gridClass;
-                    grid.innerHTML = '<div style="color:#7d6840;font-family:Special Elite,monospace;font-size:12px;padding:8px;">Loading members...</div>';
-                    section.appendChild(grid);
-
-                    crewRolesEl.appendChild(section);
-
-                    // Fetch members for this role
-                    fetch("https://groups.roblox.com/v1/groups/" + groupId + "/roles/" + role.id + "/users?limit=100&sortOrder=Asc")
-                        .then(function(r) { return r.json(); })
-                        .then(function(usersData) {
-                            var users = usersData.data || [];
-                            grid.innerHTML = "";
-
-                            users.forEach(function(user) {
-                                var card = document.createElement("div");
-                                card.className = "crew-card";
-
-                                var avatar = document.createElement("div");
-                                avatar.className = "crew-avatar";
-                                avatar.setAttribute("data-user", user.username);
-
-                                var name = document.createElement("div");
-                                name.className = "crew-name";
-                                name.textContent = user.displayName || user.username;
-
-                                card.appendChild(avatar);
-                                card.appendChild(name);
-
-                                if (user.displayName && user.displayName !== user.username) {
-                                    var handle = document.createElement("div");
-                                    handle.className = "crew-handle";
-                                    handle.textContent = "@" + user.username;
-                                    card.appendChild(handle);
-                                }
-
-                                grid.appendChild(card);
-                            });
-
-                            // Batch load avatars for this role
-                            var userIds = users.map(function(u) { return u.userId; });
-                            if (userIds.length > 0) {
-                                loadAvatars(userIds);
-                            }
-                        })
-                        .catch(function() {
-                            grid.innerHTML = '<div style="color:#7d6840;font-family:Special Elite,monospace;font-size:12px;padding:8px;">Could not load members</div>';
-                        });
-                });
-            })
-            .catch(function() {
-                crewRolesEl.innerHTML = '<div style="color:#7d6840;font-family:Special Elite,monospace;font-size:12px;padding:8px;text-align:center;">Could not load group data</div>';
-            });
-
-        // Batch load avatars by user IDs
-        function loadAvatars(userIds) {
-            var api =
-                "https://thumbnails.roblox.com/v1/users/avatar-headshot"
-                + "?userIds=" + userIds.join(",")
-                + "&size=150x150"
-                + "&format=Png"
-                + "&isCircular=true";
-
-            fetch(api)
+        if (ids.length > 0) {
+            fetch("https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" + ids.join(",") + "&size=150x150&format=Png&isCircular=true")
                 .then(function(r) { return r.json(); })
                 .then(function(data) {
                     if (data.data) {
                         data.data.forEach(function(entry) {
                             if (entry.imageUrl) {
-                                var el = document.querySelector('[data-user="' + entry.targetId + '"]');
+                                var el = document.querySelector('[data-userid="' + entry.targetId + '"]');
                                 if (el) {
                                     var img = new Image();
                                     img.onload = function() {
-                                        el.style.backgroundImage = 'url(' + entry.imageUrl + ')';
+                                        el.style.backgroundImage = "url(" + entry.imageUrl + ")";
                                     };
                                     img.src = entry.imageUrl;
                                 }
