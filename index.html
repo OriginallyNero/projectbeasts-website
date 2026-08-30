@@ -1,146 +1,689 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Project Beasts</title>
+    <title>Project Beasts | Roblox</title>
+
+    <meta
+        name="description"
+        content="Project Beasts is a Roblox hunting adventure where you hunt sea monsters, discover creatures and islands, earn abilities, and collect accessories."
+    >
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #080b12;
-            color: white;
-            min-height: 100vh;
+        html {
+            scroll-behavior: smooth;
         }
 
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #050912;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           BACKGROUND
+        ========================= */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+
+            background:
+                radial-gradient(
+                    circle at 50% 20%,
+                    rgba(0, 160, 255, 0.14),
+                    transparent 40%
+                ),
+                radial-gradient(
+                    circle at 20% 80%,
+                    rgba(0, 90, 255, 0.10),
+                    transparent 35%
+                );
+
+        }
+
+        /* =========================
+           PARTICLES
+        ========================= */
+
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(100, 210, 255, 0.5);
+            border-radius: 50%;
+
+            animation:
+                floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+
+            0% {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
         nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+
             width: 100%;
-            padding: 20px 8%;
+
+            padding: 20px 7%;
+
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            background: rgba(8, 11, 18, 0.95);
-            border-bottom: 1px solid #202633;
+            justify-content: space-between;
+
+            z-index: 100;
+
+            background:
+                rgba(4, 8, 16, 0.72);
+
+            backdrop-filter: blur(14px);
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.06);
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 1px;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+
+            background: #29b6ff;
+
+            box-shadow:
+                0 0 15px #29b6ff;
         }
 
         .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 28px;
         }
 
         .nav-links a {
-            color: #aaa;
+            color: #aeb9c9;
             text-decoration: none;
-            font-weight: bold;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            transition: 0.2s;
         }
 
         .nav-links a:hover {
             color: white;
         }
 
+        /* =========================
+           HERO
+        ========================= */
+
         .hero {
-            min-height: 80vh;
+            min-height: 100vh;
+
+            padding:
+                150px 20px
+                100px;
+
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+
             text-align: center;
-            padding: 40px 20px;
+
+            position: relative;
+
             background:
-                radial-gradient(circle at center, #17253d 0%, #080b12 60%);
+
+                linear-gradient(
+                    to bottom,
+                    rgba(5, 9, 18, 0.2),
+                    #050912 95%
+                ),
+
+                radial-gradient(
+                    ellipse at center,
+                    rgba(0, 120, 210, 0.18),
+                    transparent 60%
+                );
         }
 
+        /* Ocean glow */
+
+        .ocean-glow {
+            position: absolute;
+
+            width: 800px;
+            height: 300px;
+
+            left: 50%;
+            bottom: 0;
+
+            transform:
+                translateX(-50%);
+
+            background:
+                radial-gradient(
+                    ellipse,
+                    rgba(0, 130, 255, 0.20),
+                    transparent 70%
+                );
+
+            filter: blur(20px);
+
+            pointer-events: none;
+        }
+
+        /* =========================
+           GAME ICON
+        ========================= */
+
+        .game-icon-wrapper {
+            width: 210px;
+            height: 210px;
+
+            border-radius: 32px;
+
+            padding: 5px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #35c7ff,
+                    #1767ff,
+                    #6a3dff
+                );
+
+            box-shadow:
+                0 0 50px rgba(0, 150, 255, 0.35),
+                0 25px 80px rgba(0, 0, 0, 0.5);
+
+            margin-bottom: 35px;
+
+            animation:
+                iconFloat 4s ease-in-out infinite;
+        }
+
+        .game-icon {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            border-radius: 27px;
+
+            display: block;
+
+            background: #101722;
+        }
+
+        @keyframes iconFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+        }
+
+        /* =========================
+           HERO TEXT
+        ========================= */
+
         .hero h1 {
-            font-size: clamp(50px, 10vw, 100px);
-            font-weight: 900;
-            letter-spacing: -4px;
+            font-size:
+                clamp(52px, 10vw, 110px);
+
+            line-height: 0.95;
+
+            font-weight: 1000;
+
+            letter-spacing: -5px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff 0%,
+                    #bfeaff 45%,
+                    #4bbcff 100%
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+
+            text-shadow:
+                0 15px 40px rgba(0, 120, 255, 0.15);
+
+            margin-bottom: 25px;
+        }
+
+        .tagline {
+            font-size:
+                clamp(18px, 3vw, 25px);
+
+            font-weight: 800;
+
+            color: #e9f7ff;
+
             margin-bottom: 15px;
         }
 
-        .hero p {
-            max-width: 600px;
-            color: #aeb7c7;
-            font-size: 20px;
-            line-height: 1.6;
+        .description {
+            max-width: 700px;
+
+            color: #8f9cad;
+
+            font-size: 17px;
+
+            line-height: 1.7;
+
             margin-bottom: 35px;
         }
 
-        .play-button {
-            display: inline-block;
-            padding: 17px 45px;
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            justify-content: center;
+        }
+
+        .play-button,
+        .secondary-button {
+
+            padding:
+                16px 30px;
+
             border-radius: 10px;
-            background: white;
-            color: black;
+
             text-decoration: none;
-            font-size: 18px;
+
+            font-size: 15px;
+
             font-weight: 900;
-            transition: 0.2s;
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s;
+        }
+
+        .play-button {
+
+            color: #03101a;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #8cdbff
+                );
+
+            box-shadow:
+                0 10px 35px
+                rgba(0, 170, 255, 0.25);
+        }
+
+        .secondary-button {
+
+            color: white;
+
+            background:
+                rgba(255, 255, 255, 0.06);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.12);
+        }
+
+        .play-button:hover,
+        .secondary-button:hover {
+
+            transform:
+                translateY(-3px);
+
         }
 
         .play-button:hover {
-            transform: scale(1.06);
+
+            box-shadow:
+                0 15px 45px
+                rgba(0, 170, 255, 0.4);
         }
 
+        /* =========================
+           SECTION
+        ========================= */
+
         .section {
-            padding: 80px 8%;
+
+            padding:
+                110px 7%;
+
+            max-width: 1300px;
+
+            margin: auto;
+
             text-align: center;
         }
 
-        .section h2 {
-            font-size: 40px;
+        .section-label {
+
+            color: #35bfff;
+
+            font-size: 12px;
+
+            font-weight: 900;
+
+            letter-spacing: 3px;
+
+            text-transform: uppercase;
+
             margin-bottom: 15px;
         }
 
-        .section p {
-            color: #8f99aa;
-            max-width: 650px;
-            margin: auto;
-            line-height: 1.6;
+        .section h2 {
+
+            font-size:
+                clamp(35px, 5vw, 55px);
+
+            margin-bottom: 20px;
+
+            letter-spacing: -2px;
         }
 
+        .section-intro {
+
+            max-width: 700px;
+
+            margin:
+                0 auto 55px;
+
+            color: #8995a7;
+
+            line-height: 1.7;
+
+            font-size: 16px;
+        }
+
+        /* =========================
+           FEATURE CARDS
+        ========================= */
+
         .cards {
-            margin-top: 45px;
+
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 20px;
+
+            text-align: left;
         }
 
         .card {
-            padding: 35px;
-            background: #10151f;
-            border: 1px solid #222a38;
-            border-radius: 15px;
+
+            position: relative;
+
+            padding: 30px;
+
+            min-height: 230px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(20, 30, 45, 0.9),
+                    rgba(8, 13, 23, 0.9)
+                );
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.07);
+
+            overflow: hidden;
+
+            transition:
+                transform 0.25s,
+                border-color 0.25s;
+        }
+
+        .card::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 150px;
+            height: 150px;
+
+            top: -80px;
+            right: -80px;
+
+            background:
+                rgba(0, 160, 255, 0.12);
+
+            border-radius: 50%;
+
+            filter: blur(30px);
+        }
+
+        .card:hover {
+
+            transform:
+                translateY(-7px);
+
+            border-color:
+                rgba(60, 190, 255, 0.3);
+        }
+
+        .card-icon {
+
+            font-size: 35px;
+
+            margin-bottom: 20px;
         }
 
         .card h3 {
-            font-size: 22px;
+
+            font-size: 20px;
+
             margin-bottom: 10px;
         }
 
         .card p {
-            font-size: 15px;
+
+            color: #7f8a9b;
+
+            line-height: 1.6;
+
+            font-size: 14px;
         }
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        .about {
+
+            border-top:
+                1px solid
+                rgba(255, 255, 255, 0.05);
+
+            border-bottom:
+                1px solid
+                rgba(255, 255, 255, 0.05);
+
+            background:
+                rgba(10, 17, 28, 0.55);
+        }
+
+        .about-content {
+
+            max-width: 850px;
+
+            margin: auto;
+        }
+
+        .about-content p {
+
+            color: #9aa6b7;
+
+            font-size: 18px;
+
+            line-height: 1.9;
+        }
+
+        .highlight {
+
+            color: #55c9ff;
+
+            font-weight: 800;
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+
+            margin:
+                30px auto 100px;
+
+            max-width: 1100px;
+
+            padding:
+                70px 30px;
+
+            text-align: center;
+
+            border-radius: 25px;
+
+            background:
+
+                radial-gradient(
+                    circle at center,
+                    rgba(0, 130, 255, 0.18),
+                    transparent 65%
+                ),
+
+                #0b1422;
+
+            border:
+                1px solid
+                rgba(80, 190, 255, 0.12);
+        }
+
+        .cta h2 {
+
+            font-size:
+                clamp(35px, 5vw, 55px);
+
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+
+            color: #8793a5;
+
+            margin-bottom: 30px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
 
         footer {
-            padding: 30px;
+
+            padding:
+                35px 20px;
+
             text-align: center;
-            color: #667085;
-            border-top: 1px solid #202633;
+
+            color: #566174;
+
+            border-top:
+                1px solid
+                rgba(255, 255, 255, 0.05);
+
+            font-size: 13px;
         }
 
-        @media (max-width: 700px) {
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
             .nav-links {
                 display: none;
             }
@@ -148,84 +691,536 @@
             .cards {
                 grid-template-columns: 1fr;
             }
+
+            .game-icon-wrapper {
+                width: 170px;
+                height: 170px;
+            }
+
+            .hero h1 {
+                letter-spacing: -3px;
+            }
+
         }
+
+        @media (max-width: 500px) {
+
+            .game-icon-wrapper {
+                width: 145px;
+                height: 145px;
+
+                border-radius: 23px;
+            }
+
+            .game-icon {
+                border-radius: 18px;
+            }
+
+            .description {
+                font-size: 15px;
+            }
+
+            .section {
+                padding:
+                    80px 20px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
+
+    <!-- =========================
+         FLOATING PARTICLES
+    ========================== -->
+
+    <div class="particles">
+
+        <div class="particle"
+            style="left:5%; animation-duration:14s;"></div>
+
+        <div class="particle"
+            style="left:12%; animation-duration:19s; animation-delay:2s;"></div>
+
+        <div class="particle"
+            style="left:20%; animation-duration:16s; animation-delay:4s;"></div>
+
+        <div class="particle"
+            style="left:31%; animation-duration:22s; animation-delay:1s;"></div>
+
+        <div class="particle"
+            style="left:42%; animation-duration:17s; animation-delay:6s;"></div>
+
+        <div class="particle"
+            style="left:54%; animation-duration:20s; animation-delay:3s;"></div>
+
+        <div class="particle"
+            style="left:65%; animation-duration:15s; animation-delay:5s;"></div>
+
+        <div class="particle"
+            style="left:76%; animation-duration:23s; animation-delay:2s;"></div>
+
+        <div class="particle"
+            style="left:87%; animation-duration:18s; animation-delay:7s;"></div>
+
+        <div class="particle"
+            style="left:94%; animation-duration:21s; animation-delay:1s;"></div>
+
+    </div>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
     <nav>
-        <div class="logo">PROJECT BEASTS</div>
+
+        <div class="logo">
+
+            <span class="logo-dot"></span>
+
+            PROJECT BEASTS
+
+        </div>
+
 
         <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#features">Features</a>
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a href="#features">
+                Features
+            </a>
+
         </div>
+
     </nav>
 
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
     <section class="hero" id="home">
-        <h1>PROJECT BEASTS</h1>
 
-        <p>
-            Enter the world of Project Beasts.
-            Discover powerful creatures, explore the world,
-            and become the ultimate beast hunter.
+        <div class="ocean-glow"></div>
+
+
+        <!-- Roblox game icon -->
+
+        <div class="game-icon-wrapper">
+
+            <img
+                id="gameIcon"
+                class="game-icon"
+                alt="Project Beasts Roblox Game Icon"
+            >
+
+        </div>
+
+
+        <h1>
+            PROJECT BEASTS
+        </h1>
+
+
+        <div class="tagline">
+
+            HUNT. DISCOVER. CONQUER.
+
+        </div>
+
+
+        <p class="description">
+
+            Hunt terrifying sea monsters, earn powerful abilities,
+            discover mysterious creatures and islands, and collect
+            rare accessories in the world of Project Beasts.
+
         </p>
 
-        <!-- Replace this link with your Roblox game link -->
-        <a
-            class="play-button"
-            href="https://www.roblox.com/"
-            target="_blank"
-        >
-            PLAY ON ROBLOX
-        </a>
+
+        <div class="buttons">
+
+            <a
+                class="play-button"
+                href="https://www.roblox.com/games/133266772399319/Project-Beasts"
+                target="_blank"
+            >
+
+                🎮 PLAY ON ROBLOX
+
+            </a>
+
+
+            <a
+                class="secondary-button"
+                href="#features"
+            >
+
+                EXPLORE THE GAME
+
+            </a>
+
+        </div>
+
     </section>
 
-    <section class="section" id="about">
-        <h2>ABOUT THE GAME</h2>
 
-        <p>
-            Project Beasts is a Roblox adventure where players
-            explore, discover creatures, and build their collection.
+    <!-- =========================
+         ABOUT
+    ========================== -->
+
+    <section
+        class="section about"
+        id="about"
+    >
+
+        <div class="about-content">
+
+            <div class="section-label">
+                THE ADVENTURE
+            </div>
+
+            <h2>
+                ENTER THE WORLD
+            </h2>
+
+            <p>
+
+                <span class="highlight">
+                    Project Beasts
+                </span>
+                is a Roblox hunting adventure built around
+                exploration and discovery.
+
+                Venture across the ocean and search for
+                dangerous sea monsters.
+
+                As you progress, you'll earn
+                <span class="highlight">
+                    new abilities
+                </span>,
+                discover
+                <span class="highlight">
+                    new creatures
+                </span>,
+                find mysterious
+                <span class="highlight">
+                    islands
+                </span>,
+                and collect unique
+                <span class="highlight">
+                    accessories
+                </span>.
+
+                There is always something new waiting
+                beyond the horizon.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FEATURES
+    ========================== -->
+
+    <section
+        class="section"
+        id="features"
+    >
+
+        <div class="section-label">
+            WHAT AWAITS YOU
+        </div>
+
+        <h2>
+            BUILD YOUR ADVENTURE
+        </h2>
+
+        <p class="section-intro">
+
+            Explore the world, hunt powerful beasts,
+            and grow your collection as you uncover
+            everything Project Beasts has to offer.
+
         </p>
-    </section>
 
-    <section class="section" id="features">
-
-        <h2>FEATURES</h2>
 
         <div class="cards">
 
-            <div class="card">
-                <h3>🐲 BEASTS</h3>
-                <p>
-                    Discover different creatures throughout the world.
-                </p>
-            </div>
+
+            <!-- SEA MONSTERS -->
 
             <div class="card">
-                <h3>🌎 EXPLORE</h3>
+
+                <div class="card-icon">
+                    🌊
+                </div>
+
+                <h3>
+                    Hunt Sea Monsters
+                </h3>
+
                 <p>
-                    Explore different areas and uncover new discoveries.
+
+                    Search the ocean for dangerous
+                    and mysterious sea beasts.
+
+                    Track them down and prove
+                    yourself as a hunter.
+
                 </p>
+
             </div>
 
+
+            <!-- ABILITIES -->
+
             <div class="card">
-                <h3>⚔️ ADVENTURE</h3>
+
+                <div class="card-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Earn Abilities
+                </h3>
+
                 <p>
-                    Become stronger and take on new challenges.
+
+                    Progress through the game and
+                    unlock abilities that help you
+                    become a stronger hunter.
+
                 </p>
+
             </div>
+
+
+            <!-- CREATURES -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🐲
+                </div>
+
+                <h3>
+                    Discover Creatures
+                </h3>
+
+                <p>
+
+                    Discover different creatures
+                    throughout your journey and
+                    build your collection.
+
+                </p>
+
+            </div>
+
+
+            <!-- ISLANDS -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🏝️
+                </div>
+
+                <h3>
+                    Discover Islands
+                </h3>
+
+                <p>
+
+                    Travel across the ocean and
+                    discover islands hiding secrets,
+                    creatures, and new adventures.
+
+                </p>
+
+            </div>
+
+
+            <!-- ACCESSORIES -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🎒
+                </div>
+
+                <h3>
+                    Collect Accessories
+                </h3>
+
+                <p>
+
+                    Find and collect unique accessories
+                    while exploring the world of
+                    Project Beasts.
+
+                </p>
+
+            </div>
+
+
+            <!-- EXPLORE -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🧭
+                </div>
+
+                <h3>
+                    Explore
+                </h3>
+
+                <p>
+
+                    The ocean is full of unknown places.
+                    Set out into the world and discover
+                    what lies beyond the horizon.
+
+                </p>
+
+            </div>
+
 
         </div>
 
     </section>
 
+
+    <!-- =========================
+         FINAL CTA
+    ========================== -->
+
+    <div class="cta">
+
+        <div class="section-label">
+            YOUR HUNT BEGINS
+        </div>
+
+        <h2>
+            READY TO HUNT?
+        </h2>
+
+        <p>
+            The ocean is waiting.
+            What will you discover?
+        </p>
+
+
+        <a
+            class="play-button"
+            href="https://www.roblox.com/games/133266772399319/Project-Beasts"
+            target="_blank"
+        >
+
+            🎮 PLAY PROJECT BEASTS
+
+        </a>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
     <footer>
-        © 2026 Project Beasts. All rights reserved.
+
+        © 2026 Project Beasts.
+        Built for Roblox.
+
     </footer>
 
+
+    <!-- =========================
+         ROBLOX ICON LOADER
+    ========================== -->
+
+    <script>
+
+        /*
+            Project Beasts Place ID
+        */
+
+        const placeId =
+            "133266772399319";
+
+
+        /*
+            Roblox provides an official thumbnail
+            endpoint for game icons.
+
+            We use the PLACE ID here, so you don't
+            have to manually upload the icon.
+        */
+
+        const iconApi =
+            "https://thumbnails.roblox.com/v1/places/gameicons"
+            + "?placeIds=" + placeId
+            + "&size=512x512"
+            + "&format=Png"
+            + "&isCircular=false";
+
+
+        /*
+            Ask Roblox for the icon.
+        */
+
+        fetch(iconApi)
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                if (
+                    data.data &&
+                    data.data.length > 0 &&
+                    data.data[0].imageUrl
+                ) {
+
+                    document
+                        .getElementById("gameIcon")
+                        .src =
+                        data.data[0].imageUrl;
+
+                }
+
+            })
+
+            .catch(error => {
+
+                console.log(
+                    "Unable to load Roblox game icon:",
+                    error
+                );
+
+            });
+
+    </script>
+
+
 </body>
+
 </html>
