@@ -12,7 +12,44 @@
         content="Project Beasts is a Roblox hunting adventure where you hunt sea monsters, discover creatures and islands, earn abilities, and collect accessories."
     >
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@500;600;700&family=IM+Fell+English&family=IM+Fell+English+SC&family=Special+Elite&display=swap"
+        rel="stylesheet"
+    >
+
     <style>
+
+        :root {
+            --ink:        #3a2c16;
+            --ink-soft:   #5c4a28;
+            --ink-dim:    #7d6840;
+
+            --parch-light:#f4e6bb;
+            --parch:      #e7d4a4;
+            --parch-dark: #cfb482;
+            --parch-edge: #a9885a;
+
+            --sea-deep:   #0a1926;
+            --sea:        #0e2738;
+            --sea-mid:    #16384c;
+            --sea-light:  #24546a;
+
+            --wood-deep:  #241610;
+            --wood:       #3a2517;
+            --wood-light: #4e321f;
+
+            --brass:      #c89b3c;
+            --brass-dark: #97701f;
+            --brass-deep: #6f5116;
+
+            --rope:       #b08d57;
+            --rope-dark:  #8a5f2e;
+
+            --cream:      #ead9ae;
+            --foam:       #bfe3e6;
+        }
 
         * {
             margin: 0;
@@ -25,80 +62,61 @@
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #050912;
-            color: white;
+            font-family: "IM Fell English", Georgia, serif;
+            background-color: var(--sea-deep);
+            background-image:
+                radial-gradient(ellipse at 50% 0%, rgba(66, 140, 170, 0.18), transparent 55%),
+                radial-gradient(ellipse at 15% 100%, rgba(36, 84, 106, 0.25), transparent 50%),
+                linear-gradient(180deg, #08131f 0%, var(--sea-deep) 35%, var(--sea) 100%);
+            background-attachment: fixed;
+            color: var(--cream);
             overflow-x: hidden;
         }
 
-        /* =========================
-           BACKGROUND
-        ========================= */
-
-        body::before {
+        /* film grain over everything */
+        body::after {
             content: "";
             position: fixed;
             inset: 0;
+            z-index: 200;
             pointer-events: none;
-            z-index: -2;
+            opacity: 0.22;
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+            mix-blend-mode: overlay;
+        }
 
-            background:
-                radial-gradient(
-                    circle at 50% 20%,
-                    rgba(0, 160, 255, 0.14),
-                    transparent 40%
-                ),
-                radial-gradient(
-                    circle at 20% 80%,
-                    rgba(0, 90, 255, 0.10),
-                    transparent 35%
-                );
-
+        ::selection {
+            background: rgba(200, 155, 60, 0.55);
+            color: #1a1006;
         }
 
         /* =========================
-           PARTICLES
+           MATERIALS
         ========================= */
 
-        .particles {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
+        .wood {
+            background:
+                repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0 2px, transparent 2px 92px),
+                repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.09) 0 1px, transparent 1px 9px),
+                linear-gradient(180deg, var(--wood-light), var(--wood) 55%, var(--wood-deep));
         }
 
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(100, 210, 255, 0.5);
-            border-radius: 50%;
-
-            animation:
-                floatUp linear infinite;
+        .parchment {
+            background:
+                radial-gradient(ellipse at 28% 12%, rgba(255, 246, 214, 0.6), transparent 55%),
+                radial-gradient(ellipse at 78% 92%, rgba(130, 96, 44, 0.3), transparent 58%),
+                linear-gradient(155deg, var(--parch-light) 0%, var(--parch) 45%, var(--parch-dark) 100%);
         }
 
-        @keyframes floatUp {
-
-            0% {
-                transform: translateY(110vh);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 1;
-            }
-
-            90% {
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-10vh);
-                opacity: 0;
-            }
-
+        .rope {
+            height: 15px;
+            border-radius: 50% / 50%;
+            background:
+                repeating-linear-gradient(45deg, #c79a55 0 5px, #7c522a 5px 10px),
+                repeating-linear-gradient(-45deg, #7c522a 0 5px, #c79a55 5px 10px);
+            opacity: 0.9;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
         }
 
         /* =========================
@@ -109,65 +127,65 @@
             position: fixed;
             top: 0;
             left: 0;
-
             width: 100%;
-
-            padding: 20px 7%;
-
+            z-index: 100;
+            padding: 16px 7%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-
-            z-index: 100;
-
             background:
-                rgba(4, 8, 16, 0.72);
+                repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.14) 0 2px, transparent 2px 76px),
+                linear-gradient(180deg, #3a2417, #241610);
+            border-bottom: 3px solid #120b06;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
+        }
 
-            backdrop-filter: blur(14px);
-
-            border-bottom:
-                1px solid rgba(255, 255, 255, 0.06);
+        nav::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -7px;
+            height: 7px;
+            background:
+                repeating-linear-gradient(45deg, #c79a55 0 4px, #7c522a 4px 8px),
+                repeating-linear-gradient(-45deg, #7c522a 0 4px, #c79a55 4px 8px);
+            opacity: 0.85;
         }
 
         .logo {
-            font-size: 20px;
-            font-weight: 900;
-            letter-spacing: 1px;
-
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-family: "IM Fell English SC", serif;
+            font-size: 20px;
+            letter-spacing: 2px;
+            color: var(--cream);
         }
 
-        .logo-dot {
-            width: 10px;
-            height: 10px;
-
-            border-radius: 50%;
-
-            background: #29b6ff;
-
-            box-shadow:
-                0 0 15px #29b6ff;
+        .logo svg {
+            width: 30px;
+            height: 30px;
+            filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.6));
         }
 
         .nav-links {
             display: flex;
-            gap: 28px;
+            gap: 26px;
         }
 
         .nav-links a {
-            color: #aeb9c9;
+            font-family: "Special Elite", monospace;
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #c7b281;
             text-decoration: none;
-
-            font-size: 14px;
-            font-weight: 700;
-
-            transition: 0.2s;
+            transition: color 0.2s;
         }
 
         .nav-links a:hover {
-            color: white;
+            color: #ffe3a0;
         }
 
         /* =========================
@@ -175,487 +193,521 @@
         ========================= */
 
         .hero {
+            position: relative;
             min-height: 100vh;
-
-            padding:
-                150px 20px
-                100px;
-
+            padding: 160px 20px 120px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-
-            text-align: center;
-
-            position: relative;
-
-            background:
-
-                linear-gradient(
-                    to bottom,
-                    rgba(5, 9, 18, 0.2),
-                    #050912 95%
-                ),
-
-                radial-gradient(
-                    ellipse at center,
-                    rgba(0, 120, 210, 0.18),
-                    transparent 60%
-                );
+            overflow: hidden;
         }
 
-        /* Ocean glow */
-
-        .ocean-glow {
+        .kraken {
             position: absolute;
-
-            width: 800px;
-            height: 300px;
-
-            left: 50%;
             bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(900px, 130%);
+            pointer-events: none;
+            opacity: 0.5;
+            z-index: 0;
+        }
 
-            transform:
-                translateX(-50%);
+        .compass-watermark {
+            position: absolute;
+            width: 340px;
+            height: 340px;
+            right: -70px;
+            top: 8%;
+            opacity: 0.14;
+            transform: rotate(14deg);
+            pointer-events: none;
+            z-index: 0;
+        }
 
-            background:
-                radial-gradient(
-                    ellipse,
-                    rgba(0, 130, 255, 0.20),
-                    transparent 70%
-                );
+        .waves-bottom {
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.85;
+        }
 
-            filter: blur(20px);
+        /* the map chart */
+        .chart {
+            position: relative;
+            z-index: 2;
+            width: min(880px, 100%);
+            padding: clamp(30px, 6vw, 66px) clamp(22px, 5vw, 60px);
+            text-align: center;
+            border-radius: 14px 34px 20px 38px / 38px 18px 40px 16px;
+            box-shadow:
+                inset 0 0 0 1px rgba(90, 64, 24, 0.6),
+                inset 0 0 60px rgba(100, 72, 28, 0.35),
+                0 30px 70px rgba(0, 0, 0, 0.6);
+            transform: rotate(-0.6deg);
+            color: var(--ink);
+        }
 
+        .chart::before {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border: 1.5px dashed rgba(94, 68, 28, 0.5);
+            border-radius: 8px 26px 12px 30px / 28px 10px 32px 9px;
             pointer-events: none;
         }
 
-        /* =========================
-           GAME ICON
-        ========================= */
+        .brad {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #f4dc96, #c89b3c 55%, #6f5116);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.55);
+            z-index: 3;
+        }
+        .brad-tl { top: 6px;  left: 6px; }
+        .brad-tr { top: 6px;  right: 6px; }
+        .brad-bl { bottom: 6px; left: 6px; }
+        .brad-br { bottom: 6px; right: 6px; }
 
-        .game-icon-wrapper {
-            width: 210px;
-            height: 210px;
+        .chart .compass-small {
+            position: absolute;
+            top: 14px;
+            right: 20px;
+            width: 74px;
+            height: 74px;
+            opacity: 0.85;
+            transform: rotate(6deg);
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+        }
 
-            border-radius: 32px;
+        .chart .compass-small-flip {
+            position: absolute;
+            bottom: 14px;
+            left: 20px;
+            width: 58px;
+            height: 58px;
+            opacity: 0.6;
+            transform: rotate(-18deg);
+        }
 
-            padding: 5px;
+        .log-line {
+            font-family: "Special Elite", monospace;
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--ink-dim);
+            margin-bottom: 18px;
+        }
+        .log-line span {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .log-line svg { width: 46px; height: 10px; }
 
+        .chart h1 {
+            font-family: "Grenze Gotisch", serif;
+            font-weight: 700;
+            font-size: clamp(50px, 9vw, 96px);
+            line-height: 0.92;
+            letter-spacing: 2px;
+            color: var(--ink);
+            margin: 8px 0 22px;
+            text-shadow: 0 1px 0 rgba(255, 250, 225, 0.6), 0 -1px 0 rgba(70, 48, 14, 0.4);
+            transform: rotate(-1deg);
+        }
+
+        .chart .tagline {
+            font-family: "Special Elite", monospace;
+            font-size: 15px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--brass-deep);
+            margin-bottom: 22px;
+        }
+
+        .chart .description {
+            max-width: 660px;
+            margin: 0 auto 34px;
+            font-size: 18px;
+            line-height: 1.75;
+            color: var(--ink-soft);
+        }
+
+        /* Game icon framed in brass */
+        .game-icon-frame {
+            width: 188px;
+            height: 188px;
+            margin: 26px auto 30px;
+            padding: 9px;
+            border-radius: 14px;
             background:
-                linear-gradient(
-                    135deg,
-                    #35c7ff,
-                    #1767ff,
-                    #6a3dff
-                );
-
+                linear-gradient(150deg, #e2b95f, #b9862d 45%, #6f5116);
             box-shadow:
-                0 0 50px rgba(0, 150, 255, 0.35),
-                0 25px 80px rgba(0, 0, 0, 0.5);
+                inset 0 1px 0 rgba(255, 240, 190, 0.7),
+                0 10px 28px rgba(0, 0, 0, 0.5);
+            transform: rotate(1.5deg);
+            position: relative;
+        }
 
-            margin-bottom: 35px;
-
-            animation:
-                iconFloat 4s ease-in-out infinite;
+        .game-icon-frame::after {
+            content: "";
+            position: absolute;
+            inset: 3px;
+            border: 1px solid rgba(70, 46, 12, 0.6);
+            border-radius: 10px;
+            pointer-events: none;
         }
 
         .game-icon {
             width: 100%;
             height: 100%;
-
             object-fit: cover;
-
-            border-radius: 27px;
-
+            border-radius: 9px;
             display: block;
-
             background: #101722;
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.5);
         }
-
-        @keyframes iconFloat {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-
-        }
-
-        /* =========================
-           HERO TEXT
-        ========================= */
-
-        .hero h1 {
-            font-size:
-                clamp(52px, 10vw, 110px);
-
-            line-height: 0.95;
-
-            font-weight: 1000;
-
-            letter-spacing: -5px;
-
-            background:
-                linear-gradient(
-                    180deg,
-                    #ffffff 0%,
-                    #bfeaff 45%,
-                    #4bbcff 100%
-                );
-
-            -webkit-background-clip: text;
-            background-clip: text;
-
-            color: transparent;
-
-            text-shadow:
-                0 15px 40px rgba(0, 120, 255, 0.15);
-
-            margin-bottom: 25px;
-        }
-
-        .tagline {
-            font-size:
-                clamp(18px, 3vw, 25px);
-
-            font-weight: 800;
-
-            color: #e9f7ff;
-
-            margin-bottom: 15px;
-        }
-
-        .description {
-            max-width: 700px;
-
-            color: #8f9cad;
-
-            font-size: 17px;
-
-            line-height: 1.7;
-
-            margin-bottom: 35px;
-        }
-
-        /* =========================
-           BUTTONS
-        ========================= */
 
         .buttons {
             display: flex;
-            gap: 15px;
-
+            gap: 16px;
             flex-wrap: wrap;
-
             justify-content: center;
         }
 
         .play-button,
         .secondary-button {
-
-            padding:
-                16px 30px;
-
-            border-radius: 10px;
-
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: 8px;
             text-decoration: none;
+            font-family: "IM Fell English SC", serif;
+            font-size: 16px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+        }
 
-            font-size: 15px;
-
-            font-weight: 900;
-
-            transition:
-                transform 0.2s,
-                box-shadow 0.2s;
+        .play-button svg,
+        .secondary-button svg {
+            width: 22px;
+            height: 22px;
         }
 
         .play-button {
-
-            color: #03101a;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #ffffff,
-                    #8cdbff
-                );
-
+            color: #241804;
+            background: linear-gradient(160deg, #ecc763, #c89b3c 50%, #9a7222);
+            border: 2px solid #6f5116;
             box-shadow:
-                0 10px 35px
-                rgba(0, 170, 255, 0.25);
+                inset 0 1px 0 rgba(255, 245, 200, 0.8),
+                0 8px 22px rgba(0, 0, 0, 0.45);
         }
 
         .secondary-button {
-
-            color: white;
-
-            background:
-                rgba(255, 255, 255, 0.06);
-
-            border:
-                1px solid
-                rgba(255, 255, 255, 0.12);
+            color: #ead9ae;
+            background: linear-gradient(170deg, #2c1b0f, #150d07);
+            border: 2px solid var(--rope-dark);
+            box-shadow: inset 0 1px 0 rgba(255, 230, 160, 0.15), 0 8px 22px rgba(0, 0, 0, 0.45);
         }
 
         .play-button:hover,
         .secondary-button:hover {
-
-            transform:
-                translateY(-3px);
-
+            transform: translateY(-4px) rotate(-0.5deg);
         }
 
         .play-button:hover {
+            filter: brightness(1.08);
+            box-shadow: inset 0 1px 0 rgba(255, 245, 200, 0.8), 0 14px 30px rgba(0, 0, 0, 0.5);
+        }
 
-            box-shadow:
-                0 15px 45px
-                rgba(0, 170, 255, 0.4);
+        .secondary-button:hover {
+            box-shadow: inset 0 1px 0 rgba(255, 230, 160, 0.15), 0 14px 30px rgba(0, 0, 0, 0.5);
         }
 
         /* =========================
-           SECTION
+           SECTION BASE
         ========================= */
 
         .section {
-
-            padding:
-                110px 7%;
-
+            position: relative;
+            padding: 110px 7%;
             max-width: 1300px;
-
             margin: auto;
-
             text-align: center;
         }
 
         .section-label {
-
-            color: #35bfff;
-
+            font-family: "Special Elite", monospace;
+            color: var(--brass);
             font-size: 12px;
-
-            font-weight: 900;
-
-            letter-spacing: 3px;
-
+            letter-spacing: 4px;
             text-transform: uppercase;
-
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .section h2 {
-
-            font-size:
-                clamp(35px, 5vw, 55px);
-
-            margin-bottom: 20px;
-
-            letter-spacing: -2px;
+            font-family: "IM Fell English SC", serif;
+            font-weight: 400;
+            font-size: clamp(34px, 5vw, 54px);
+            letter-spacing: 2px;
+            color: var(--cream);
+            margin-bottom: 14px;
         }
 
         .section-intro {
-
-            max-width: 700px;
-
-            margin:
-                0 auto 55px;
-
-            color: #8995a7;
-
-            line-height: 1.7;
-
-            font-size: 16px;
+            max-width: 680px;
+            margin: 0 auto 50px;
+            color: #9fb8bd;
+            line-height: 1.8;
+            font-size: 17px;
         }
 
         /* =========================
-           FEATURE CARDS
+           ABOUT (SHIP'S LOG)
         ========================= */
 
+        .about {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .about .log-panel {
+            position: relative;
+            max-width: 850px;
+            margin: 46px auto 0;
+            padding: 52px clamp(26px, 6vw, 70px);
+            text-align: center;
+            border-radius: 12px 30px 16px 32px / 32px 14px 34px 12px;
+            box-shadow:
+                inset 0 0 0 1px rgba(90, 64, 24, 0.6),
+                inset 0 0 50px rgba(100, 72, 28, 0.3),
+                0 24px 55px rgba(0, 0, 0, 0.5);
+            transform: rotate(0.4deg);
+            color: var(--ink);
+        }
+
+        .about .log-panel::before {
+            content: "";
+            position: absolute;
+            inset: 11px;
+            border: 1.5px dashed rgba(94, 68, 28, 0.45);
+            border-radius: 7px 22px 10px 25px / 24px 9px 28px 8px;
+            pointer-events: none;
+        }
+
+        .about .log-panel h3 {
+            font-family: "IM Fell English SC", serif;
+            font-size: 30px;
+            letter-spacing: 2px;
+            color: var(--ink);
+            margin-bottom: 22px;
+        }
+
+        .about .log-panel p {
+            font-size: 19px;
+            line-height: 1.95;
+            color: var(--ink-soft);
+        }
+
+        .highlight {
+            color: var(--brass-deep);
+            font-weight: 700;
+        }
+
+        /* =========================
+           FEATURES (WOOD BOARD)
+        ========================= */
+
+        .meet {
+            padding: 110px 7% 120px;
+            text-align: center;
+            color: var(--cream);
+            position: relative;
+            box-shadow: inset 0 14px 30px rgba(0, 0, 0, 0.5), inset 0 -14px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .meet::before,
+        .meet::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 10px;
+            z-index: 2;
+            background:
+                repeating-linear-gradient(45deg, #c79a55 0 5px, #7c522a 5px 10px),
+                repeating-linear-gradient(-45deg, #7c522a 0 5px, #c79a55 5px 10px);
+            opacity: 0.9;
+        }
+        .meet::before { top: 0; }
+        .meet::after  { bottom: 0; }
+
+        .meet h2 {
+            color: var(--cream);
+            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        .meet .section-intro {
+            color: #b6c8c2;
+        }
+
         .cards {
-
             display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 20px;
-
+            grid-template-columns: repeat(3, 1fr);
+            gap: 26px;
+            max-width: 1000px;
+            margin: 0 auto;
             text-align: left;
         }
 
         .card {
-
             position: relative;
-
-            padding: 30px;
-
-            min-height: 230px;
-
-            border-radius: 18px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(20, 30, 45, 0.9),
-                    rgba(8, 13, 23, 0.9)
-                );
-
-            border:
-                1px solid
-                rgba(255, 255, 255, 0.07);
-
-            overflow: hidden;
-
-            transition:
-                transform 0.25s,
-                border-color 0.25s;
+            padding: 30px 28px;
+            border-radius: 10px 22px 12px 24px / 24px 10px 26px 12px;
+            box-shadow:
+                inset 0 0 0 1px rgba(90, 64, 24, 0.55),
+                inset 0 0 30px rgba(100, 72, 28, 0.25),
+                0 14px 30px rgba(0, 0, 0, 0.55);
+            color: var(--ink);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
-
         .card::before {
-
             content: "";
-
             position: absolute;
-
-            width: 150px;
-            height: 150px;
-
-            top: -80px;
-            right: -80px;
-
-            background:
-                rgba(0, 160, 255, 0.12);
-
-            border-radius: 50%;
-
-            filter: blur(30px);
+            inset: 9px;
+            border: 1.5px dashed rgba(94, 68, 28, 0.4);
+            border-radius: 6px 16px 8px 18px / 18px 7px 20px 6px;
+            pointer-events: none;
         }
+
+        .card:nth-child(1) { transform: rotate(-1deg); }
+        .card:nth-child(2) { transform: rotate(0.8deg); }
+        .card:nth-child(3) { transform: rotate(-0.7deg); }
+        .card:nth-child(4) { transform: rotate(1deg); }
+        .card:nth-child(5) { transform: rotate(-0.9deg); }
+        .card:nth-child(6) { transform: rotate(0.7deg); }
 
         .card:hover {
-
-            transform:
-                translateY(-7px);
-
-            border-color:
-                rgba(60, 190, 255, 0.3);
+            transform: rotate(0deg) translateY(-8px);
+            box-shadow:
+                inset 0 0 0 1px rgba(90, 64, 24, 0.55),
+                inset 0 0 30px rgba(100, 72, 28, 0.25),
+                0 22px 44px rgba(0, 0, 0, 0.62);
         }
 
         .card-icon {
-
-            font-size: 35px;
-
-            margin-bottom: 20px;
+            width: 52px;
+            height: 52px;
+            margin-bottom: 18px;
+            color: #6f5116;
+            filter: drop-shadow(0 1px 0 rgba(255, 250, 225, 0.5));
         }
 
         .card h3 {
-
-            font-size: 20px;
-
-            margin-bottom: 10px;
+            font-family: "IM Fell English SC", serif;
+            font-size: 22px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            color: var(--ink);
         }
 
         .card p {
+            color: var(--ink-soft);
+            line-height: 1.7;
+            font-size: 15px;
+        }
 
-            color: #7f8a9b;
-
-            line-height: 1.6;
-
-            font-size: 14px;
+        .card .no {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-family: "Special Elite", monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(111, 81, 22, 0.55);
+            transform: rotate(3deg);
         }
 
         /* =========================
-           ABOUT
-        ========================= */
-
-        .about {
-
-            border-top:
-                1px solid
-                rgba(255, 255, 255, 0.05);
-
-            border-bottom:
-                1px solid
-                rgba(255, 255, 255, 0.05);
-
-            background:
-                rgba(10, 17, 28, 0.55);
-        }
-
-        .about-content {
-
-            max-width: 850px;
-
-            margin: auto;
-        }
-
-        .about-content p {
-
-            color: #9aa6b7;
-
-            font-size: 18px;
-
-            line-height: 1.9;
-        }
-
-        .highlight {
-
-            color: #55c9ff;
-
-            font-weight: 800;
-        }
-
-        /* =========================
-           CTA
+           CTA (TREASURE MAP)
         ========================= */
 
         .cta {
-
-            margin:
-                30px auto 100px;
-
-            max-width: 1100px;
-
-            padding:
-                70px 30px;
-
+            position: relative;
+            margin: 40px auto 110px;
+            max-width: 1000px;
+            padding: clamp(48px, 8vw, 84px) clamp(24px, 6vw, 70px);
             text-align: center;
+            border-radius: 14px 36px 18px 40px / 40px 16px 42px 15px;
+            box-shadow:
+                inset 0 0 0 1px rgba(90, 64, 24, 0.6),
+                inset 0 0 70px rgba(100, 72, 28, 0.4),
+                0 30px 70px rgba(0, 0, 0, 0.6);
+            color: var(--ink);
+            overflow: hidden;
+            transform: rotate(-0.4deg);
+        }
 
-            border-radius: 25px;
+        .cta::before {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border: 1.5px dashed rgba(94, 68, 28, 0.45);
+            border-radius: 8px 28px 10px 30px / 30px 9px 32px 8px;
+            pointer-events: none;
+        }
 
-            background:
+        .x-marks {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(-8deg);
+            width: 320px;
+            height: 320px;
+            opacity: 0.12;
+            pointer-events: none;
+        }
 
-                radial-gradient(
-                    circle at center,
-                    rgba(0, 130, 255, 0.18),
-                    transparent 65%
-                ),
-
-                #0b1422;
-
-            border:
-                1px solid
-                rgba(80, 190, 255, 0.12);
+        .cta .seal {
+            position: absolute;
+            width: 86px;
+            height: 86px;
+            left: -18px;
+            bottom: 84px;
+            z-index: 4;
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
+            transform: rotate(-12deg);
         }
 
         .cta h2 {
-
-            font-size:
-                clamp(35px, 5vw, 55px);
-
-            margin-bottom: 15px;
+            font-family: "IM Fell English SC", serif;
+            font-weight: 400;
+            font-size: clamp(36px, 6vw, 58px);
+            letter-spacing: 2px;
+            color: var(--ink);
+            margin-bottom: 12px;
         }
 
         .cta p {
+            color: var(--ink-soft);
+            font-size: 19px;
+            margin-bottom: 34px;
+        }
 
-            color: #8793a5;
-
-            margin-bottom: 30px;
+        .cta .play-button {
+            box-shadow:
+                inset 0 1px 0 rgba(255, 245, 200, 0.8),
+                0 10px 26px rgba(0, 0, 0, 0.45);
         }
 
         /* =========================
@@ -663,19 +715,32 @@
         ========================= */
 
         footer {
-
-            padding:
-                35px 20px;
-
+            padding: 42px 20px 50px;
             text-align: center;
+            color: #93805d;
+            background:
+                repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.14) 0 2px, transparent 2px 76px),
+                linear-gradient(180deg, #241610, #170e08);
+            border-top: 3px solid #120b06;
+            font-family: "IM Fell English", serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
 
-            color: #566174;
+        footer svg {
+            width: 22px;
+            height: 22px;
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
 
-            border-top:
-                1px solid
-                rgba(255, 255, 255, 0.05);
-
-            font-size: 13px;
+        footer .reg {
+            font-family: "Special Elite", monospace;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #6f5d3f;
+            margin-top: 12px;
         }
 
         /* =========================
@@ -690,39 +755,48 @@
 
             .cards {
                 grid-template-columns: 1fr;
+                max-width: 460px;
             }
 
-            .game-icon-wrapper {
-                width: 170px;
-                height: 170px;
+            .kraken {
+                width: 150%;
+                opacity: 0.35;
             }
 
-            .hero h1 {
-                letter-spacing: -3px;
+            .compass-watermark {
+                display: none;
+            }
+
+            .game-icon-frame {
+                width: 150px;
+                height: 150px;
             }
 
         }
 
         @media (max-width: 500px) {
 
-            .game-icon-wrapper {
-                width: 145px;
-                height: 145px;
-
-                border-radius: 23px;
+            .hero {
+                padding: 130px 14px 90px;
             }
 
-            .game-icon {
-                border-radius: 18px;
+            .chart .compass-small,
+            .chart .compass-small-flip {
+                display: none;
             }
 
-            .description {
-                font-size: 15px;
+            .game-icon-frame {
+                width: 128px;
+                height: 128px;
             }
 
-            .section {
-                padding:
-                    80px 20px;
+            .cta .seal {
+                display: none;
+            }
+
+            .x-marks {
+                width: 220px;
+                height: 220px;
             }
 
         }
@@ -731,47 +805,7 @@
 
 </head>
 
-
 <body>
-
-
-    <!-- =========================
-         FLOATING PARTICLES
-    ========================== -->
-
-    <div class="particles">
-
-        <div class="particle"
-            style="left:5%; animation-duration:14s;"></div>
-
-        <div class="particle"
-            style="left:12%; animation-duration:19s; animation-delay:2s;"></div>
-
-        <div class="particle"
-            style="left:20%; animation-duration:16s; animation-delay:4s;"></div>
-
-        <div class="particle"
-            style="left:31%; animation-duration:22s; animation-delay:1s;"></div>
-
-        <div class="particle"
-            style="left:42%; animation-duration:17s; animation-delay:6s;"></div>
-
-        <div class="particle"
-            style="left:54%; animation-duration:20s; animation-delay:3s;"></div>
-
-        <div class="particle"
-            style="left:65%; animation-duration:15s; animation-delay:5s;"></div>
-
-        <div class="particle"
-            style="left:76%; animation-duration:23s; animation-delay:2s;"></div>
-
-        <div class="particle"
-            style="left:87%; animation-duration:18s; animation-delay:7s;"></div>
-
-        <div class="particle"
-            style="left:94%; animation-duration:21s; animation-delay:1s;"></div>
-
-    </div>
 
 
     <!-- =========================
@@ -780,28 +814,27 @@
 
     <nav>
 
-        <div class="logo">
+        <a class="logo" href="#home" style="text-decoration:none;">
 
-            <span class="logo-dot"></span>
+            <svg viewBox="0 0 48 48" fill="none" stroke="#ead9ae" stroke-width="1.6">
+                <circle cx="24" cy="24" r="20" stroke-width="2.2"/>
+                <circle cx="24" cy="24" r="13" opacity="0.7"/>
+                <path d="M17 31 L23 24 L17 17" />
+                <path d="M31 31 L25 24 L31 17" />
+                <path d="M24 4 L26 10 L22 10 Z M24 38 L26 44 L22 44 Z" />
+                <path d="M24 44 L24 38 M24 10 L24 4" opacity="0.7"/>
+            </svg>
 
             PROJECT BEASTS
 
-        </div>
+        </a>
 
 
         <div class="nav-links">
 
-            <a href="#home">
-                Home
-            </a>
-
-            <a href="#about">
-                About
-            </a>
-
-            <a href="#features">
-                Features
-            </a>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
 
         </div>
 
@@ -814,120 +847,188 @@
 
     <section class="hero" id="home">
 
-        <div class="ocean-glow"></div>
+        <!-- sea monster rising from the deep -->
+        <svg class="kraken" viewBox="0 0 800 600" fill="#14384b" aria-hidden="true">
+            <path d="M120 620 C110 500 60 430 110 380 C150 340 200 380 182 430 C168 468 200 520 222 620 Z"/>
+            <path d="M330 620 C310 470 240 400 292 332 C322 292 380 322 362 372 C347 410 382 502 392 620 Z"/>
+            <path d="M520 620 C500 480 420 422 472 352 C502 312 560 342 540 392 C526 426 552 512 562 620 Z"/>
+            <path d="M700 620 C680 540 620 500 640 460 C655 430 690 450 680 482 C670 506 690 552 702 620 Z"/>
+            <circle cx="118" cy="398" r="4" opacity="0.5"/>
+            <circle cx="286" cy="352" r="4" opacity="0.5"/>
+            <circle cx="478" cy="372" r="4" opacity="0.5"/>
+            <circle cx="180" cy="440" r="3.5" opacity="0.5"/>
+            <circle cx="365" cy="396" r="3.5" opacity="0.5"/>
+            <circle cx="546" cy="420" r="3.5" opacity="0.5"/>
+        </svg>
+
+        <!-- faint compass in the sea -->
+        <svg class="compass-watermark" viewBox="0 0 100 100" fill="none" stroke="#7fbcd6" stroke-width="1" aria-hidden="true">
+            <circle cx="50" cy="50" r="47" stroke-dasharray="2 4"/>
+            <circle cx="50" cy="50" r="38"/>
+            <polygon points="50,8 56,50 50,58 44,50" fill="#7fbcd6" stroke="none"/>
+            <polygon points="50,92 44,50 50,42 56,50" fill="#7fbcd6" stroke="none"/>
+            <polygon points="92,50 50,56 42,50 50,44" fill="#7fbcd6" stroke="none"/>
+            <polygon points="8,50 50,44 58,50 50,56" fill="#7fbcd6" stroke="none"/>
+            <line x1="50" y1="50" x2="50" y2="32"/>
+            <line x1="50" y1="50" x2="50" y2="68"/>
+            <line x1="50" y1="50" x2="32" y2="50"/>
+            <line x1="50" y1="50" x2="68" y2="50"/>
+            <text x="50" y="19" text-anchor="middle" font-size="12" font-family="serif" fill="#7fbcd6">N</text>
+        </svg>
 
 
-        <!-- Roblox game icon -->
+        <!-- the captain's chart -->
+        <div class="chart parchment">
 
-        <div class="game-icon-wrapper">
+            <span class="brad brad-tl"></span>
+            <span class="brad brad-tr"></span>
+            <span class="brad brad-bl"></span>
+            <span class="brad brad-br"></span>
 
-            <img
-                id="gameIcon"
-                class="game-icon"
-                alt="Project Beasts Roblox Game Icon"
-            >
+            <!-- compass rose -->
+            <svg class="compass-small" viewBox="0 0 100 100" fill="none" stroke="#6f5116" stroke-width="1.4" aria-hidden="true">
+                <circle cx="50" cy="50" r="46"/>
+                <circle cx="50" cy="50" r="38" stroke-dasharray="1.5 3"/>
+                <polygon points="50,12 56,50 50,58 44,50" fill="#6f5116" stroke="none"/>
+                <polygon points="50,88 56,50 50,42 44,50" fill="#b9862d" stroke="none"/>
+                <polygon points="88,50 50,56 42,50 50,44" fill="#b9862d" stroke="none"/>
+                <polygon points="12,50 50,56 58,50 50,44" fill="#b9862d" stroke="none"/>
+                <line x1="50" y1="24" x2="50" y2="34"/>
+                <line x1="50" y1="66" x2="50" y2="76"/>
+                <text x="50" y="26" text-anchor="middle" font-size="11" font-family="serif">N</text>
+            </svg>
+
+            <!-- anchor watermark -->
+            <svg class="compass-small-flip" viewBox="0 0 48 48" fill="none" stroke="#6f5116" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <circle cx="24" cy="8" r="3.4"/>
+                <path d="M24 11 v24"/>
+                <path d="M14 16 c0 9 5 12 10 12 c5 0 10 -3 10 -12" />
+                <line x1="14" y1="16" x2="34" y2="16"/>
+                <path d="M10 24 h28"/>
+            </svg>
+
+
+            <div class="log-line">
+                <span>
+                    <svg viewBox="0 0 46 10" fill="none" stroke="#8a6c34" stroke-width="1.6">
+                        <path d="M1 5 H18 M22 5 L24 3 L28 7 L30 5 H45"/>
+                    </svg>
+                    The Grand Expedition
+                    <svg viewBox="0 0 46 10" fill="none" stroke="#8a6c34" stroke-width="1.6">
+                        <path d="M1 5 H18 M22 5 L24 3 L28 7 L30 5 H45"/>
+                    </svg>
+                </span>
+            </div>
+
+
+            <!-- framed game icon -->
+            <div class="game-icon-frame">
+
+                <img
+                    id="gameIcon"
+                    class="game-icon"
+                    alt="Project Beasts Roblox Game Icon"
+                >
+
+            </div>
+
+
+            <h1>
+                PROJECT BEASTS
+            </h1>
+
+
+            <div class="tagline">
+                HUNT · DISCOVER · CONQUER
+            </div>
+
+
+            <p class="description">
+                Hunt terrifying sea monsters, earn powerful abilities,
+                discover mysterious creatures and islands, and collect
+                rare accessories across the seven seas of Project Beasts.
+            </p>
+
+
+            <div class="buttons">
+
+                <a
+                    class="play-button"
+                    href="https://www.roblox.com/games/133266772399319/Project-Beasts"
+                    target="_blank"
+                >
+                    <svg viewBox="0 0 48 48" fill="none" stroke="#241804" stroke-width="2" stroke-linecap="round">
+                        <circle cx="24" cy="8" r="3.4"/>
+                        <path d="M24 11 v24"/>
+                        <path d="M14 16 c0 9 5 12 10 12 c5 0 10 -3 10 -12"/>
+                        <line x1="14" y1="16" x2="34" y2="16"/>
+                        <path d="M10 24 h28"/>
+                    </svg>
+                    Play On Roblox
+                </a>
+
+                <a
+                    class="secondary-button"
+                    href="#features"
+                >
+                    <svg viewBox="0 0 48 48" fill="none" stroke="#c7b281" stroke-width="2">
+                        <circle cx="24" cy="24" r="18"/>
+                        <polygon points="15,33 21,24 15,15" fill="#c7b281" stroke="none"/>
+                        <polygon points="33,33 27,24 33,15" fill="#c7b281" stroke="none"/>
+                        <line x1="24" y1="24" x2="24" y2="8"/>
+                    </svg>
+                    Explore The Game
+                </a>
+
+            </div>
 
         </div>
 
 
-        <h1>
-            PROJECT BEASTS
-        </h1>
-
-
-        <div class="tagline">
-
-            HUNT. DISCOVER. CONQUER.
-
-        </div>
-
-
-        <p class="description">
-
-            Hunt terrifying sea monsters, earn powerful abilities,
-            discover mysterious creatures and islands, and collect
-            rare accessories in the world of Project Beasts.
-
-        </p>
-
-
-        <div class="buttons">
-
-            <a
-                class="play-button"
-                href="https://www.roblox.com/games/133266772399319/Project-Beasts"
-                target="_blank"
-            >
-
-                🎮 PLAY ON ROBLOX
-
-            </a>
-
-
-            <a
-                class="secondary-button"
-                href="#features"
-            >
-
-                EXPLORE THE GAME
-
-            </a>
-
-        </div>
+        <!-- rolling wave at the bottom -->
+        <svg class="waves-bottom" viewBox="0 0 1440 90" preserveAspectRatio="none" fill="#0a1926" aria-hidden="true">
+            <path d="M0 45 Q 60 20 120 45 T 240 45 T 360 45 T 480 45 T 600 45 T 720 45 T 840 45 T 960 45 T 1080 45 T 1200 45 T 1320 45 T 1440 45 V 90 H 0 Z"/>
+        </svg>
 
     </section>
 
 
     <!-- =========================
-         ABOUT
+         ABOUT (SHIP'S LOG)
     ========================== -->
 
-    <section
-        class="section about"
-        id="about"
-    >
+    <section class="section about" id="about">
 
-        <div class="about-content">
+        <div class="section-label">
+            ▼ Ship's Log · Entry No. 1 ▼
+        </div>
 
-            <div class="section-label">
-                THE ADVENTURE
-            </div>
+        <h2>
+            ENTER THE WORLD
+        </h2>
 
-            <h2>
-                ENTER THE WORLD
-            </h2>
+
+        <div class="log-panel parchment">
+
+            <span class="brad brad-tl" style="left:10px;top:10px;"></span>
+            <span class="brad brad-tr" style="right:10px;top:10px;"></span>
+            <span class="brad brad-bl" style="left:10px;bottom:10px;"></span>
+            <span class="brad brad-br" style="right:10px;bottom:10px;"></span>
+
+            <h3>Captain's Journal</h3>
 
             <p>
-
-                <span class="highlight">
-                    Project Beasts
-                </span>
+                <span class="highlight">Project Beasts</span>
                 is a Roblox hunting adventure built around
                 exploration and discovery.
-
-                Venture across the ocean and search for
+                Set sail across the open ocean and search for
                 dangerous sea monsters.
-
                 As you progress, you'll earn
-                <span class="highlight">
-                    new abilities
-                </span>,
-                discover
-                <span class="highlight">
-                    new creatures
-                </span>,
-                find mysterious
-                <span class="highlight">
-                    islands
-                </span>,
-                and collect unique
-                <span class="highlight">
-                    accessories
-                </span>.
-
-                There is always something new waiting
-                beyond the horizon.
-
+                <span class="highlight">new abilities</span>,
+                discover <span class="highlight">new creatures</span>,
+                find mysterious <span class="highlight">islands</span>,
+                and collect unique <span class="highlight">accessories</span>.
+                There is always something new waiting beyond the horizon.
             </p>
 
         </div>
@@ -936,28 +1037,23 @@
 
 
     <!-- =========================
-         FEATURES
+         FEATURES (WOOD BOARD)
     ========================== -->
 
-    <section
-        class="section"
-        id="features"
-    >
+    <section class="meet wood" id="features">
 
         <div class="section-label">
-            WHAT AWAITS YOU
+            ✒ Mariner's Notes
         </div>
 
         <h2>
-            BUILD YOUR ADVENTURE
+            WHAT AWAITS YOU
         </h2>
 
         <p class="section-intro">
-
-            Explore the world, hunt powerful beasts,
+            Chart your course, hunt powerful beasts,
             and grow your collection as you uncover
             everything Project Beasts has to offer.
-
         </p>
 
 
@@ -965,140 +1061,148 @@
 
 
             <!-- SEA MONSTERS -->
+            <div class="card parchment">
 
-            <div class="card">
+                <span class="no">No. 01</span>
+                <span class="brad brad-tl" style="left:8px;top:8px;"></span>
+                <span class="brad brad-tr" style="right:8px;top:8px;"></span>
 
                 <div class="card-icon">
-                    🌊
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 16 Q10 9 16 16 Q22 23 28 16 Q34 9 40 16"/>
+                        <path d="M2 29 Q9 22 16 29 Q23 36 30 29 Q37 22 44 29"/>
+                    </svg>
                 </div>
 
-                <h3>
-                    Hunt Sea Monsters
-                </h3>
+                <h3>Hunt Sea Monsters</h3>
 
                 <p>
-
-                    Search the ocean for dangerous
-                    and mysterious sea beasts.
-
-                    Track them down and prove
-                    yourself as a hunter.
-
+                    Search the ocean for dangerous and mysterious sea beasts.
+                    Track them down and prove yourself as a hunter.
                 </p>
 
             </div>
 
 
             <!-- ABILITIES -->
+            <div class="card parchment">
 
-            <div class="card">
+                <span class="no">No. 02</span>
+                <span class="brad brad-tl" style="left:8px;top:8px;"></span>
+                <span class="brad brad-tr" style="right:8px;top:8px;"></span>
 
                 <div class="card-icon">
-                    ⚡
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M26 4 L13 28 h9 l-3 16 14-22 h-9 z"/>
+                    </svg>
                 </div>
 
-                <h3>
-                    Earn Abilities
-                </h3>
+                <h3>Earn Abilities</h3>
 
                 <p>
-
-                    Progress through the game and
-                    unlock abilities that help you
-                    become a stronger hunter.
-
+                    Progress through the game and unlock
+                    abilities that help you become the mightiest hunter at sea.
                 </p>
 
             </div>
 
 
             <!-- CREATURES -->
+            <div class="card parchment">
 
-            <div class="card">
+                <span class="no">No. 03</span>
+                <span class="brad brad-tl" style="left:8px;top:8px;"></span>
+                <span class="brad brad-tr" style="right:8px;top:8px;"></span>
 
                 <div class="card-icon">
-                    🐲
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 40 q6 -12 14 -14 t14 -6 q6 -2 6 -8 M44 12 q4 -2 1 -7"/>
+                        <path d="M44 12 q-4 0 -3 -4 q1 -3 3 -3 q3 0 3 4"/>
+                        <path d="M8 44 q4 -8 12 -9"/>
+                    </svg>
                 </div>
 
-                <h3>
-                    Discover Creatures
-                </h3>
+                <h3>Discover Creatures</h3>
 
                 <p>
-
-                    Discover different creatures
-                    throughout your journey and
-                    build your collection.
-
+                    Discover strange creatures throughout your
+                    journey and build your collection of beasts.
                 </p>
 
             </div>
 
 
             <!-- ISLANDS -->
+            <div class="card parchment">
 
-            <div class="card">
+                <span class="no">No. 04</span>
+                <span class="brad brad-tl" style="left:8px;top:8px;"></span>
+                <span class="brad brad-tr" style="right:8px;top:8px;"></span>
 
                 <div class="card-icon">
-                    🏝️
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 32 q2 -6 8 -6 q2 -3 5 -3 q4 0 5 3 q6 -2 8 2 q4 2 4 4 q-2 4 -8 4 H 12 q-5 0 -6 -4 Z"/>
+                        <path d="M24 10 v9"/>
+                        <path d="M24 10 q-6 2 -8 -2 M24 13 q6 0 9 -3 M24 17 q-4 0 -6 2 M24 19 q6 -2 8 -6"/>
+                    </svg>
                 </div>
 
-                <h3>
-                    Discover Islands
-                </h3>
+                <h3>Discover Islands</h3>
 
                 <p>
-
-                    Travel across the ocean and
-                    discover islands hiding secrets,
-                    creatures, and new adventures.
-
+                    Travel across the ocean and discover islands
+                    hiding secrets, creatures, and new adventures.
                 </p>
 
             </div>
 
 
             <!-- ACCESSORIES -->
+            <div class="card parchment">
 
-            <div class="card">
+                <span class="no">No. 05</span>
+                <span class="brad brad-tl" style="left:8px;top:8px;"></span>
+                <span class="brad brad-tr" style="right:8px;top:8px;"></span>
 
                 <div class="card-icon">
-                    🎒
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 22 h32 v18 q0 2 -2 2 H 10 q-2 0 -2 -2 Z"/>
+                        <path d="M8 22 q2 -16 32 -16 q0 8 -4 16 q-6 -4 -12 -4 q-8 0 -16 4 Z"/>
+                        <path d="M20 28 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0"/>
+                    </svg>
                 </div>
 
-                <h3>
-                    Collect Accessories
-                </h3>
+                <h3>Collect Accessories</h3>
 
                 <p>
-
                     Find and collect unique accessories
-                    while exploring the world of
-                    Project Beasts.
-
+                    while exploring the world of Project Beasts.
                 </p>
 
             </div>
 
 
             <!-- EXPLORE -->
+            <div class="card parchment">
 
-            <div class="card">
+                <span class="no">No. 06</span>
+                <span class="brad brad-tl" style="left:8px;top:8px;"></span>
+                <span class="brad brad-tr" style="right:8px;top:8px;"></span>
 
                 <div class="card-icon">
-                    🧭
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="24" cy="24" r="19"/>
+                        <polygon points="16,34 21,24 16,14" fill="currentColor" stroke="none"/>
+                        <polygon points="32,34 27,24 32,14" fill="currentColor" stroke="none"/>
+                        <path d="M24 24 L24 6"/>
+                    </svg>
                 </div>
 
-                <h3>
-                    Explore
-                </h3>
+                <h3>Explore New Waters</h3>
 
                 <p>
-
                     The ocean is full of unknown places.
-                    Set out into the world and discover
-                    what lies beyond the horizon.
-
+                    Set sail toward the horizon and discover what lies beyond.
                 </p>
 
             </div>
@@ -1110,13 +1214,36 @@
 
 
     <!-- =========================
-         FINAL CTA
+         FINAL CTA (TREASURE MAP)
     ========================== -->
 
-    <div class="cta">
+    <div class="cta parchment">
 
-        <div class="section-label">
-            YOUR HUNT BEGINS
+        <span class="brad brad-tl" style="left:10px;top:10px;"></span>
+        <span class="brad brad-tr" style="right:10px;top:10px;"></span>
+        <span class="brad brad-bl" style="left:10px;bottom:10px;"></span>
+        <span class="brad brad-br" style="right:10px;bottom:10px;"></span>
+
+        <!-- wax seal -->
+        <svg class="seal" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="49" fill="#a3322b"/>
+            <circle cx="50" cy="50" r="43" fill="none" stroke="#5c1712" stroke-width="2"/>
+            <path d="M30 78 Q38 60 50 58 Q62 60 70 78 Q66 88 50 90 Q34 88 30 78 Z" fill="#7c211b"/>
+            <path d="M48 64 h4 l-2 16" stroke="#5c1712" stroke-width="2" fill="none"/>
+            <path d="M40 72 q10 -8 20 0" stroke="#f3d9a0" stroke-width="2" fill="none"/>
+            <path d="M40 72 q10 -5 20 0" stroke="#f3d9a0" stroke-width="2" fill="none"/>
+        </svg>
+
+        <!-- x marks the spot -->
+        <svg class="x-marks" viewBox="0 0 100 100" fill="none" stroke="#6f5116" stroke-width="1.4" aria-hidden="true">
+            <circle cx="50" cy="50" r="46" stroke-dasharray="6 8"/>
+            <circle cx="50" cy="50" r="34" stroke-dasharray="3 6"/>
+            <path d="M35 35 L50 50 L65 65 M65 35 L50 50 L35 65"/>
+        </svg>
+
+
+        <div class="section-label" style="color:#8a6c34;">
+            Your Hunt Begins
         </div>
 
         <h2>
@@ -1124,8 +1251,7 @@
         </h2>
 
         <p>
-            The ocean is waiting.
-            What will you discover?
+            The ocean is waiting. What will you discover?
         </p>
 
 
@@ -1134,9 +1260,14 @@
             href="https://www.roblox.com/games/133266772399319/Project-Beasts"
             target="_blank"
         >
-
-            🎮 PLAY PROJECT BEASTS
-
+            <svg viewBox="0 0 48 48" fill="none" stroke="#241804" stroke-width="2" stroke-linecap="round">
+                <circle cx="24" cy="8" r="3.4"/>
+                <path d="M24 11 v24"/>
+                <path d="M14 16 c0 9 5 12 10 12 c5 0 10 -3 10 -12"/>
+                <line x1="14" y1="16" x2="34" y2="16"/>
+                <path d="M10 24 h28"/>
+            </svg>
+            Play Project Beasts
         </a>
 
     </div>
@@ -1148,8 +1279,19 @@
 
     <footer>
 
-        © 2026 Project Beasts.
-        Built for Roblox.
+        <svg viewBox="0 0 48 48" fill="none" stroke="#93805d" stroke-width="1.6" stroke-linecap="round">
+            <circle cx="24" cy="8" r="3.4"/>
+            <path d="M24 11 v24"/>
+            <path d="M14 16 c0 9 5 12 10 12 c5 0 10 -3 10 -12"/>
+            <line x1="14" y1="16" x2="34" y2="16"/>
+            <path d="M10 24 h28"/>
+        </svg>
+
+        <div>© 2026 Project Beasts. All hands aboard — built for Roblox.</div>
+
+        <div class="reg">
+            — Logged in the Captain's Registry —
+        </div>
 
     </footer>
 
@@ -1160,21 +1302,7 @@
 
     <script>
 
-        /*
-            Project Beasts Place ID
-        */
-
-        const placeId =
-            "133266772399319";
-
-
-        /*
-            Roblox provides an official thumbnail
-            endpoint for game icons.
-
-            We use the PLACE ID here, so you don't
-            have to manually upload the icon.
-        */
+        const placeId = "133266772399319";
 
         const iconApi =
             "https://thumbnails.roblox.com/v1/places/gameicons"
@@ -1183,39 +1311,15 @@
             + "&format=Png"
             + "&isCircular=false";
 
-
-        /*
-            Ask Roblox for the icon.
-        */
-
         fetch(iconApi)
-
             .then(response => response.json())
-
             .then(data => {
-
-                if (
-                    data.data &&
-                    data.data.length > 0 &&
-                    data.data[0].imageUrl
-                ) {
-
-                    document
-                        .getElementById("gameIcon")
-                        .src =
-                        data.data[0].imageUrl;
-
+                if (data.data && data.data.length > 0 && data.data[0].imageUrl) {
+                    document.getElementById("gameIcon").src = data.data[0].imageUrl;
                 }
-
             })
-
             .catch(error => {
-
-                console.log(
-                    "Unable to load Roblox game icon:",
-                    error
-                );
-
+                console.log("Unable to load Roblox game icon:", error);
             });
 
     </script>
