@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Project Beasts</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #080b12;
+            color: white;
+            min-height: 100vh;
+        }
+
+        nav {
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8, 11, 18, 0.95);
+            border-bottom: 1px solid #202633;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            background:
+                radial-gradient(circle at center, #17253d 0%, #080b12 60%);
+        }
+
+        .hero h1 {
+            font-size: clamp(50px, 10vw, 100px);
+            font-weight: 900;
+            letter-spacing: -4px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 600px;
+            color: #aeb7c7;
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 35px;
+        }
+
+        .play-button {
+            display: inline-block;
+            padding: 17px 45px;
+            border-radius: 10px;
+            background: white;
+            color: black;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 900;
+            transition: 0.2s;
+        }
+
+        .play-button:hover {
+            transform: scale(1.06);
+        }
+
+        .section {
+            padding: 80px 8%;
+            text-align: center;
+        }
+
+        .section h2 {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            color: #8f99aa;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.6;
+        }
+
+        .cards {
+            margin-top: 45px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            padding: 35px;
+            background: #10151f;
+            border: 1px solid #222a38;
+            border-radius: 15px;
+        }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 15px;
+        }
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            color: #667085;
+            border-top: 1px solid #202633;
+        }
+
+        @media (max-width: 700px) {
+            .nav-links {
+                display: none;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">PROJECT BEASTS</div>
+
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1>PROJECT BEASTS</h1>
+
+        <p>
+            Enter the world of Project Beasts.
+            Discover powerful creatures, explore the world,
+            and become the ultimate beast hunter.
+        </p>
+
+        <!-- Replace this link with your Roblox game link -->
+        <a
+            class="play-button"
+            href="https://www.roblox.com/"
+            target="_blank"
+        >
+            PLAY ON ROBLOX
+        </a>
+    </section>
+
+    <section class="section" id="about">
+        <h2>ABOUT THE GAME</h2>
+
+        <p>
+            Project Beasts is a Roblox adventure where players
+            explore, discover creatures, and build their collection.
+        </p>
+    </section>
+
+    <section class="section" id="features">
+
+        <h2>FEATURES</h2>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>🐲 BEASTS</h3>
+                <p>
+                    Discover different creatures throughout the world.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>🌎 EXPLORE</h3>
+                <p>
+                    Explore different areas and uncover new discoveries.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>⚔️ ADVENTURE</h3>
+                <p>
+                    Become stronger and take on new challenges.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer>
+        © 2026 Project Beasts. All rights reserved.
+    </footer>
+
+</body>
+</html>
