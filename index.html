@@ -637,6 +637,218 @@
         }
 
         /* =========================
+           COMMUNITY (CREW ROSTER)
+        ========================= */
+
+        .crew {
+            max-width: 1100px;
+        }
+
+        .crew h2 {
+            color: var(--cream);
+        }
+
+        .crew-panel {
+            position: relative;
+            margin: 46px auto 0;
+            padding: clamp(30px, 5vw, 56px) clamp(22px, 4vw, 52px);
+            text-align: center;
+            border-radius: 14px 32px 18px 36px / 36px 16px 38px 14px;
+            box-shadow:
+                inset 0 0 0 1px rgba(90, 64, 24, 0.6),
+                inset 0 0 50px rgba(100, 72, 28, 0.3),
+                0 24px 55px rgba(0, 0, 0, 0.5);
+            color: var(--ink);
+            text-align: left;
+        }
+
+        .crew-panel::before {
+            content: "";
+            position: absolute;
+            inset: 11px;
+            border: 1.5px dashed rgba(94, 68, 28, 0.45);
+            border-radius: 8px 24px 10px 28px / 28px 9px 30px 8px;
+            pointer-events: none;
+        }
+
+        .group-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 36px;
+            padding-bottom: 28px;
+            border-bottom: 1.5px dashed rgba(94, 68, 28, 0.35);
+        }
+
+        .group-icon-frame {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            padding: 4px;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #e2b95f, #9a7222);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 240, 190, 0.7),
+                0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .group-icon-frame::after {
+            content: "";
+            position: absolute;
+            inset: 3px;
+            border: 1px solid rgba(70, 46, 12, 0.5);
+            border-radius: 9px;
+            pointer-events: none;
+        }
+
+        .group-icon {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 9px;
+            display: block;
+            background: var(--parch-dark);
+        }
+
+        .group-info h3 {
+            font-family: "IM Fell English SC", serif;
+            font-size: 24px;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .group-info p {
+            font-family: "Special Elite", monospace;
+            font-size: 13px;
+            color: var(--ink-dim);
+            letter-spacing: 1px;
+        }
+
+        .group-info a {
+            color: var(--brass-deep);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .group-info a:hover {
+            color: var(--ink);
+        }
+
+        .crew-role {
+            margin-bottom: 28px;
+        }
+
+        .crew-role:last-child {
+            margin-bottom: 0;
+        }
+
+        .crew-role h4 {
+            font-family: "Special Elite", monospace;
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--ink-dim);
+            margin-bottom: 14px;
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .owner-badge {
+            background: linear-gradient(135deg, #ecc763, #b9862d);
+            color: #2a1a04;
+            border: 1.5px solid #8a6a2b;
+        }
+
+        .dev-badge {
+            background: linear-gradient(135deg, #d4a04a, #9a7222);
+            color: #2a1a04;
+            border: 1.5px solid #7c5a1e;
+        }
+
+        .tester-badge {
+            background: linear-gradient(135deg, #c49a5c, #8a6d3b);
+            color: #2a1a04;
+            border: 1.5px solid #6f5116;
+        }
+
+        .crew-grid {
+            display: grid;
+            gap: 14px;
+        }
+
+        .crew-1 {
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        }
+
+        .crew-4 {
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        }
+
+        .crew-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 10px;
+            border-radius: 10px;
+            background: rgba(255, 246, 214, 0.4);
+            border: 1px solid rgba(94, 68, 28, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .crew-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .crew-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--parch-dark);
+            margin-bottom: 10px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(111, 81, 22, 0.3);
+        }
+
+        .crew-name {
+            font-family: "IM Fell English SC", serif;
+            font-size: 14px;
+            color: var(--ink);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .crew-handle {
+            font-family: "Special Elite", monospace;
+            font-size: 11px;
+            color: var(--ink-dim);
+            margin-top: 3px;
+        }
+
+        @media (max-width: 600px) {
+
+            .group-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .crew-4 {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            }
+
+        }
+
+        /* =========================
            CTA (TREASURE MAP)
         ========================= */
 
@@ -832,6 +1044,7 @@
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#features">Features</a>
+            <a href="#community">Community</a>
 
         </div>
 
@@ -1211,6 +1424,197 @@
 
 
     <!-- =========================
+         COMMUNITY (CREW ROSTER)
+    ========================== -->
+
+    <section class="section crew" id="community">
+
+        <div class="section-label">
+            ⚓ The Crew
+        </div>
+
+        <h2>
+            MEMES GAMES STUDIO
+        </h2>
+
+        <p class="section-intro">
+            The people behind Project Beasts — owners, builders,
+            and testers who bring the adventure to life.
+        </p>
+
+
+        <div class="crew-panel parchment">
+
+            <span class="brad brad-tl" style="left:10px;top:10px;"></span>
+            <span class="brad brad-tr" style="right:10px;top:10px;"></span>
+            <span class="brad brad-bl" style="left:10px;bottom:10px;"></span>
+            <span class="brad brad-br" style="right:10px;bottom:10px;"></span>
+
+            <div class="group-header">
+
+                <div class="group-icon-frame">
+                    <img
+                        id="groupIcon"
+                        class="group-icon"
+                        alt="Memes Games Studio"
+                    >
+                </div>
+
+                <div class="group-info">
+                    <h3>Memes Games Studio</h3>
+                    <p>355 Members · <a href="https://www.roblox.com/communities/34127398/Memes-Games-Studio" target="_blank" rel="noopener">Join the Community</a></p>
+                </div>
+
+            </div>
+
+
+            <!-- OWNER -->
+            <div class="crew-role">
+
+                <h4>
+                    <span class="role-badge owner-badge">Owner</span>
+                </h4>
+
+                <div class="crew-grid crew-1">
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-lifeafter76" data-user="lifeafter76"></div>
+                        <div class="crew-name">OriginallyNero</div>
+                        <div class="crew-handle">@lifeafter76</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DEVS -->
+            <div class="crew-role">
+
+                <h4>
+                    <span class="role-badge dev-badge">Dev</span>
+                </h4>
+
+                <div class="crew-grid crew-4">
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-slimekin672" data-user="slimekin672"></div>
+                        <div class="crew-name">VNG_SUCKS</div>
+                        <div class="crew-handle">@slimekin672</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-Ethan360game" data-user="Ethan360game"></div>
+                        <div class="crew-name">PickleLord</div>
+                        <div class="crew-handle">@Ethan360game</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-Kiaseh" data-user="Kiaseh"></div>
+                        <div class="crew-name">Kia</div>
+                        <div class="crew-handle">@Kiaseh</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-Jaydenn67x" data-user="Jaydenn67x"></div>
+                        <div class="crew-name">Jaydenn</div>
+                        <div class="crew-handle">@Jaydenn67x</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TESTERS -->
+            <div class="crew-role">
+
+                <h4>
+                    <span class="role-badge tester-badge">Testers</span>
+                </h4>
+
+                <div class="crew-grid crew-4">
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-vovanormaldos2" data-user="vovanormaldos2"></div>
+                        <div class="crew-name">kyn_52f</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-coldglaicer1" data-user="coldglaicer1"></div>
+                        <div class="crew-name">icecream</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-robloxisthest25685" data-user="robloxisthest25685"></div>
+                        <div class="crew-name">St4r</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-Interesting_Pop" data-user="Interesting_Pop"></div>
+                        <div class="crew-name">lil_dino</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-LEGOerts" data-user="LEGOerts"></div>
+                        <div class="crew-name">LEGOerts</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-Nooqzw" data-user="Nooqzw"></div>
+                        <div class="crew-name">ciperr</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-TigerBolt12345xu" data-user="TigerBolt12345xu"></div>
+                        <div class="crew-name">TigerBolt</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-ipoopyouuwu" data-user="ipoopyouuwu"></div>
+                        <div class="crew-name">ipoopyouuwu</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-stwinroblox" data-user="stwinroblox"></div>
+                        <div class="crew-name">george</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-hellopol53" data-user="hellopol53"></div>
+                        <div class="crew-name">isthatzay</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-scriptmakerTester1" data-user="scriptmakerTester1"></div>
+                        <div class="crew-name">Illision</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-TamasCreezy" data-user="TamasCreezy"></div>
+                        <div class="crew-name">Itzz_Tamas</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-rbreadyxyz32724" data-user="rbreadyxyz32724"></div>
+                        <div class="crew-name">rexx</div>
+                    </div>
+
+                    <div class="crew-card">
+                        <div class="crew-avatar" id="avatar-Kakmakmakomg332957" data-user="Kakmakmakomg332957"></div>
+                        <div class="crew-name">SoG_bOBy2o</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
          FINAL CTA (TREASURE MAP)
     ========================== -->
 
@@ -1299,16 +1703,18 @@
 
     <script>
 
-        const placeId = "133266772399319";
+        var placeId = "133266772399319";
+        var groupId = "34127398";
 
-        const iconApi =
+        // Load game icon
+        var iconApi =
             "https://thumbnails.roblox.com/v1/places/gameicons"
             + "?placeIds=" + placeId
             + "&size=512x512"
             + "&format=Png"
             + "&isCircular=false";
 
-        const gameIconEl = document.getElementById("gameIcon");
+        var gameIconEl = document.getElementById("gameIcon");
 
         fetch(iconApi)
             .then(function(r) { return r.json(); })
@@ -1319,7 +1725,6 @@
                         gameIconEl.src = data.data[0].imageUrl;
                     };
                     img.onerror = function() {
-                        console.warn("Image failed to load, using fallback");
                         gameIconEl.style.display = "none";
                     };
                     img.src = data.data[0].imageUrl;
@@ -1328,9 +1733,71 @@
                 }
             })
             .catch(function(error) {
-                console.warn("Could not load Roblox icon:", error);
                 gameIconEl.style.display = "none";
             });
+
+        // Load group icon
+        var groupIconApi =
+            "https://thumbnails.roblox.com/v1/groups/icons"
+            + "?groupIds=" + groupId
+            + "&size=512x512"
+            + "&format=Png"
+            + "&isCircular=false";
+
+        var groupIconEl = document.getElementById("groupIcon");
+
+        fetch(groupIconApi)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.data && data.data.length > 0 && data.data[0].imageUrl) {
+                    var img = new Image();
+                    img.onload = function() {
+                        groupIconEl.src = data.data[0].imageUrl;
+                    };
+                    img.onerror = function() {
+                        groupIconEl.style.background = "#cfb482";
+                    };
+                    img.src = data.data[0].imageUrl;
+                }
+            })
+            .catch(function() {});
+
+        // Load user avatars
+        var usernames = [
+            "lifeafter76",
+            "slimekin672", "Ethan360game", "Kiaseh", "Jaydenn67x",
+            "vovanormaldos2", "coldglaicer1", "robloxisthest25685", "Interesting_Pop",
+            "LEGOerts", "Nooqzw", "TigerBolt12345xu", "ipoopyouuwu",
+            "stwinroblox", "hellopol53", "scriptmakerTester1", "TamasCreezy",
+            "rbreadyxyz32724", "Kakmakmakomg332957"
+        ];
+
+        var avatarApi =
+            "https://thumbnails.roblox.com/v1/users/avatar-headshot"
+            + "?userIds=" + usernames.join(",")
+            + "&size=150x150"
+            + "&format=Png"
+            + "&isCircular=true";
+
+        fetch(avatarApi)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.data) {
+                    data.data.forEach(function(entry) {
+                        if (entry.imageUrl) {
+                            var el = document.querySelector('[data-user="' + entry.targetId + '"]');
+                            if (el) {
+                                var img = new Image();
+                                img.onload = function() {
+                                    el.style.backgroundImage = 'url(' + entry.imageUrl + ')';
+                                };
+                                img.src = entry.imageUrl;
+                            }
+                        }
+                    });
+                }
+            })
+            .catch(function() {});
 
     </script>
 
