@@ -68,22 +68,22 @@
                 radial-gradient(ellipse at 50% 0%, rgba(66, 140, 170, 0.18), transparent 55%),
                 radial-gradient(ellipse at 15% 100%, rgba(36, 84, 106, 0.25), transparent 50%),
                 linear-gradient(180deg, #08131f 0%, var(--sea-deep) 35%, var(--sea) 100%);
-            background-attachment: fixed;
+            background-attachment: scroll;
             color: var(--cream);
             overflow-x: hidden;
         }
 
-        /* film grain over everything */
+        /* subtle parchment texture — lightweight CSS only */
         body::after {
             content: "";
             position: fixed;
             inset: 0;
             z-index: 200;
             pointer-events: none;
-            opacity: 0.22;
+            opacity: 0.03;
             background-image:
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
-            mix-blend-mode: overlay;
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.12) 0 1px, transparent 1px 3px),
+                repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0 1px, transparent 1px 3px);
         }
 
         ::selection {
@@ -97,8 +97,7 @@
 
         .wood {
             background:
-                repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0 2px, transparent 2px 92px),
-                repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.09) 0 1px, transparent 1px 9px),
+                repeating-linear-gradient(90deg, rgba(0,0,0,0.12) 0 1px, transparent 1px 92px),
                 linear-gradient(180deg, var(--wood-light), var(--wood) 55%, var(--wood-deep));
         }
 
@@ -110,11 +109,11 @@
         }
 
         .rope {
-            height: 15px;
+            height: 12px;
             border-radius: 50% / 50%;
             background:
-                repeating-linear-gradient(45deg, #c79a55 0 5px, #7c522a 5px 10px),
-                repeating-linear-gradient(-45deg, #7c522a 0 5px, #c79a55 5px 10px);
+                linear-gradient(90deg, #c79a55 25%, #7c522a 25%, #7c522a 50%, #c79a55 50%, #c79a55 75%, #7c522a 75%);
+            background-size: 12px 12px;
             opacity: 0.9;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
         }
@@ -134,7 +133,6 @@
             align-items: center;
             justify-content: space-between;
             background:
-                repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.14) 0 2px, transparent 2px 76px),
                 linear-gradient(180deg, #3a2417, #241610);
             border-bottom: 3px solid #120b06;
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
@@ -145,11 +143,11 @@
             position: absolute;
             left: 0;
             right: 0;
-            bottom: -7px;
-            height: 7px;
+            bottom: -6px;
+            height: 6px;
             background:
-                repeating-linear-gradient(45deg, #c79a55 0 4px, #7c522a 4px 8px),
-                repeating-linear-gradient(-45deg, #7c522a 0 4px, #c79a55 4px 8px);
+                linear-gradient(90deg, #c79a55 25%, #7c522a 25%, #7c522a 50%, #c79a55 50%, #c79a55 75%, #7c522a 75%);
+            background-size: 12px 6px;
             opacity: 0.85;
         }
 
@@ -542,11 +540,11 @@
             position: absolute;
             left: 0;
             right: 0;
-            height: 10px;
+            height: 8px;
             z-index: 2;
             background:
-                repeating-linear-gradient(45deg, #c79a55 0 5px, #7c522a 5px 10px),
-                repeating-linear-gradient(-45deg, #7c522a 0 5px, #c79a55 5px 10px);
+                linear-gradient(90deg, #c79a55 25%, #7c522a 25%, #7c522a 50%, #c79a55 50%, #c79a55 75%, #7c522a 75%);
+            background-size: 16px 8px;
             opacity: 0.9;
         }
         .meet::before { top: 0; }
@@ -719,7 +717,6 @@
             text-align: center;
             color: #93805d;
             background:
-                repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.14) 0 2px, transparent 2px 76px),
                 linear-gradient(180deg, #241610, #170e08);
             border-top: 3px solid #120b06;
             font-family: "IM Fell English", serif;
@@ -1311,15 +1308,28 @@
             + "&format=Png"
             + "&isCircular=false";
 
+        const gameIconEl = document.getElementById("gameIcon");
+
         fetch(iconApi)
-            .then(response => response.json())
-            .then(data => {
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
                 if (data.data && data.data.length > 0 && data.data[0].imageUrl) {
-                    document.getElementById("gameIcon").src = data.data[0].imageUrl;
+                    var img = new Image();
+                    img.onload = function() {
+                        gameIconEl.src = data.data[0].imageUrl;
+                    };
+                    img.onerror = function() {
+                        console.warn("Image failed to load, using fallback");
+                        gameIconEl.style.display = "none";
+                    };
+                    img.src = data.data[0].imageUrl;
+                } else {
+                    gameIconEl.style.display = "none";
                 }
             })
-            .catch(error => {
-                console.log("Unable to load Roblox game icon:", error);
+            .catch(function(error) {
+                console.warn("Could not load Roblox icon:", error);
+                gameIconEl.style.display = "none";
             });
 
     </script>
